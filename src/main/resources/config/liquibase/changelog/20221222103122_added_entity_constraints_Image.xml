@@ -20,10 +20,10 @@
                                  referencedColumnNames="id"
                                  referencedTableName="strain"/>
 
-        <addForeignKeyConstraint baseColumnNames="instruction_id"
+        <addForeignKeyConstraint baseColumnNames="tek_id"
                                  baseTableName="image"
-                                 constraintName="fk_image__instruction_id"
+                                 constraintName="fk_image__tek_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="instruction"/>
+                                 referencedTableName="tek"/>
     </changeSet>
 </databaseChangeLog>

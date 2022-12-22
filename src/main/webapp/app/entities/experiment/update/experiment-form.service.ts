@@ -21,7 +21,7 @@ type ExperimentFormGroupContent = {
   title: FormControl<IExperiment['title']>;
   notes: FormControl<IExperiment['notes']>;
   conductedAt: FormControl<IExperiment['conductedAt']>;
-  instructions: FormControl<IExperiment['instructions']>;
+  tek: FormControl<IExperiment['tek']>;
   conductedBy: FormControl<IExperiment['conductedBy']>;
   involvedStrains: FormControl<IExperiment['involvedStrains']>;
   precedingExperiments: FormControl<IExperiment['precedingExperiments']>;
@@ -52,7 +52,7 @@ export class ExperimentFormService {
       conductedAt: new FormControl(experimentRawValue.conductedAt, {
         validators: [Validators.required],
       }),
-      instructions: new FormControl(experimentRawValue.instructions, {
+      tek: new FormControl(experimentRawValue.tek, {
         validators: [Validators.required],
       }),
       conductedBy: new FormControl(experimentRawValue.conductedBy, {

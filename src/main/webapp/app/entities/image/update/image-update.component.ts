@@ -14,8 +14,8 @@ import { IObservation } from 'app/entities/observation/observation.model';
 import { ObservationService } from 'app/entities/observation/service/observation.service';
 import { IStrain } from 'app/entities/strain/strain.model';
 import { StrainService } from 'app/entities/strain/service/strain.service';
-import { IInstruction } from 'app/entities/instruction/instruction.model';
-import { InstructionService } from 'app/entities/instruction/service/instruction.service';
+import { ITek } from 'app/entities/tek/tek.model';
+import { TekService } from 'app/entities/tek/service/tek.service';
 
 @Component({
   selector: 'jhi-image-update',
@@ -27,7 +27,7 @@ export class ImageUpdateComponent implements OnInit {
 
   observationsSharedCollection: IObservation[] = [];
   strainsSharedCollection: IStrain[] = [];
-  instructionsSharedCollection: IInstruction[] = [];
+  teksSharedCollection: ITek[] = [];
 
   editForm: ImageFormGroup = this.imageFormService.createImageFormGroup();
 
@@ -38,7 +38,7 @@ export class ImageUpdateComponent implements OnInit {
     protected imageFormService: ImageFormService,
     protected observationService: ObservationService,
     protected strainService: StrainService,
-    protected instructionService: InstructionService,
+    protected tekService: TekService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute
   ) {}
@@ -47,7 +47,7 @@ export class ImageUpdateComponent implements OnInit {
 
   compareStrain = (o1: IStrain | null, o2: IStrain | null): boolean => this.strainService.compareStrain(o1, o2);
 
-  compareInstruction = (o1: IInstruction | null, o2: IInstruction | null): boolean => this.instructionService.compareInstruction(o1, o2);
+  compareTek = (o1: ITek | null, o2: ITek | null): boolean => this.tekService.compareTek(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ image }) => {
@@ -127,10 +127,7 @@ export class ImageUpdateComponent implements OnInit {
       image.observation
     );
     this.strainsSharedCollection = this.strainService.addStrainToCollectionIfMissing<IStrain>(this.strainsSharedCollection, image.strain);
-    this.instructionsSharedCollection = this.instructionService.addInstructionToCollectionIfMissing<IInstruction>(
-      this.instructionsSharedCollection,
-      image.instruction
-    );
+    this.teksSharedCollection = this.tekService.addTekToCollectionIfMissing<ITek>(this.teksSharedCollection, image.tek);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -150,14 +147,10 @@ export class ImageUpdateComponent implements OnInit {
       .pipe(map((strains: IStrain[]) => this.strainService.addStrainToCollectionIfMissing<IStrain>(strains, this.image?.strain)))
       .subscribe((strains: IStrain[]) => (this.strainsSharedCollection = strains));
 
-    this.instructionService
+    this.tekService
       .query()
-      .pipe(map((res: HttpResponse<IInstruction[]>) => res.body ?? []))
-      .pipe(
-        map((instructions: IInstruction[]) =>
-          this.instructionService.addInstructionToCollectionIfMissing<IInstruction>(instructions, this.image?.instruction)
-        )
-      )
-      .subscribe((instructions: IInstruction[]) => (this.instructionsSharedCollection = instructions));
+      .pipe(map((res: HttpResponse<ITek[]>) => res.body ?? []))
+      .pipe(map((teks: ITek[]) => this.tekService.addTekToCollectionIfMissing<ITek>(teks, this.image?.tek)))
+      .subscribe((teks: ITek[]) => (this.teksSharedCollection = teks));
   }
 }

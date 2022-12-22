@@ -92,9 +92,9 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="instruction.title">
+          <th scope="col" jhiSortBy="tek.title">
             <div class="d-flex">
-              <span jhiTranslate="mycoNotesApp.image.instruction">Instruction</span>
+              <span jhiTranslate="mycoNotesApp.image.tek">Tek</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -125,8 +125,8 @@
             </div>
           </td>
           <td>
-            <div *ngIf="image.instruction">
-              <a [routerLink]="['/instruction', image.instruction.id, 'view']">{{ image.instruction.title }}</a>
+            <div *ngIf="image.tek">
+              <a [routerLink]="['/tek', image.tek.id, 'view']">{{ image.tek.title }}</a>
             </div>
           </td>
           <td class="text-end">

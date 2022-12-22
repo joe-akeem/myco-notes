@@ -24,7 +24,7 @@ type ImageFormGroupContent = {
   imageContentType: FormControl<IImage['imageContentType']>;
   observation: FormControl<IImage['observation']>;
   strain: FormControl<IImage['strain']>;
-  instruction: FormControl<IImage['instruction']>;
+  tek: FormControl<IImage['tek']>;
 };
 
 export type ImageFormGroup = FormGroup<ImageFormGroupContent>;
@@ -50,7 +50,7 @@ export class ImageFormService {
       imageContentType: new FormControl(imageRawValue.imageContentType),
       observation: new FormControl(imageRawValue.observation),
       strain: new FormControl(imageRawValue.strain),
-      instruction: new FormControl(imageRawValue.instruction),
+      tek: new FormControl(imageRawValue.tek),
     });
   }
 

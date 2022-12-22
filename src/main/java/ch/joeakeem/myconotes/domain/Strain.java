@@ -45,7 +45,7 @@ public class Strain implements Serializable {
     @OneToMany(mappedBy = "strain")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @org.springframework.data.annotation.Transient
-    @JsonIgnoreProperties(value = { "observation", "strain", "instruction" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "observation", "strain", "tek" }, allowSetters = true)
     private Set<Image> images = new HashSet<>();
 
     @ManyToOne(optional = false)
@@ -56,7 +56,7 @@ public class Strain implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "observations", "instructions", "conductedBy", "involvedStrains", "precedingExperiments", "followupExperiments" },
+        value = { "observations", "tek", "conductedBy", "involvedStrains", "precedingExperiments", "followupExperiments" },
         allowSetters = true
     )
     private Experiment origin;
@@ -65,7 +65,7 @@ public class Strain implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @org.springframework.data.annotation.Transient
     @JsonIgnoreProperties(
-        value = { "observations", "instructions", "conductedBy", "involvedStrains", "precedingExperiments", "followupExperiments" },
+        value = { "observations", "tek", "conductedBy", "involvedStrains", "precedingExperiments", "followupExperiments" },
         allowSetters = true
     )
     private Set<Experiment> experiments = new HashSet<>();

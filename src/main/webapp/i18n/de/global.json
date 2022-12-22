@@ -12,7 +12,6 @@
         "strain": "Strain",
         "experiment": "Experiment",
         "tek": "Tek",
-        "instruction": "Instruction",
         "observation": "Observation",
         "image": "Image",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"

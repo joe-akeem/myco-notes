@@ -26,10 +26,10 @@
         <dd>
           <span>{{ experiment.conductedAt | formatMediumDate }}</span>
         </dd>
-        <dt><span jhiTranslate="mycoNotesApp.experiment.instructions">Instructions</span></dt>
+        <dt><span jhiTranslate="mycoNotesApp.experiment.tek">Tek</span></dt>
         <dd>
-          <div *ngIf="experiment.instructions">
-            <a [routerLink]="['/tek', experiment.instructions.id, 'view']">{{ experiment.instructions.title }}</a>
+          <div *ngIf="experiment.tek">
+            <a [routerLink]="['/tek', experiment.tek.id, 'view']">{{ experiment.tek.title }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="mycoNotesApp.experiment.conductedBy">Conducted By</span></dt>

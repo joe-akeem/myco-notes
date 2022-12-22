@@ -32,7 +32,7 @@
             <column name="strain_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="instruction_id" type="bigint">
+            <column name="tek_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

@@ -45,13 +45,13 @@ public class Observation implements Serializable {
     @OneToMany(mappedBy = "observation")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @org.springframework.data.annotation.Transient
-    @JsonIgnoreProperties(value = { "observation", "strain", "instruction" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "observation", "strain", "tek" }, allowSetters = true)
     private Set<Image> images = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "observations", "instructions", "conductedBy", "involvedStrains", "precedingExperiments", "followupExperiments" },
+        value = { "observations", "tek", "conductedBy", "involvedStrains", "precedingExperiments", "followupExperiments" },
         allowSetters = true
     )
     private Experiment experiment;

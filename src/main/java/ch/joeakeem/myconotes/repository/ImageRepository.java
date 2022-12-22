@@ -27,18 +27,18 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     }
 
     @Query(
-        value = "select distinct image from Image image left join fetch image.observation left join fetch image.strain left join fetch image.instruction",
+        value = "select distinct image from Image image left join fetch image.observation left join fetch image.strain left join fetch image.tek",
         countQuery = "select count(distinct image) from Image image"
     )
     Page<Image> findAllWithToOneRelationships(Pageable pageable);
 
     @Query(
-        "select distinct image from Image image left join fetch image.observation left join fetch image.strain left join fetch image.instruction"
+        "select distinct image from Image image left join fetch image.observation left join fetch image.strain left join fetch image.tek"
     )
     List<Image> findAllWithToOneRelationships();
 
     @Query(
-        "select image from Image image left join fetch image.observation left join fetch image.strain left join fetch image.instruction where image.id =:id"
+        "select image from Image image left join fetch image.observation left join fetch image.strain left join fetch image.tek where image.id =:id"
     )
     Optional<Image> findOneWithToOneRelationships(@Param("id") Long id);
 }

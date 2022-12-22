@@ -60,11 +60,10 @@ public class CacheConfiguration {
             createCache(cm, ch.joeakeem.myconotes.domain.Experiment.class.getName() + ".followupExperiments");
             createCache(cm, ch.joeakeem.myconotes.domain.Tek.class.getName());
             createCache(cm, ch.joeakeem.myconotes.domain.Tek.class.getName() + ".instructions");
-            createCache(cm, ch.joeakeem.myconotes.domain.Instruction.class.getName());
-            createCache(cm, ch.joeakeem.myconotes.domain.Instruction.class.getName() + ".images");
             createCache(cm, ch.joeakeem.myconotes.domain.Observation.class.getName());
             createCache(cm, ch.joeakeem.myconotes.domain.Observation.class.getName() + ".images");
             createCache(cm, ch.joeakeem.myconotes.domain.Image.class.getName());
+            createCache(cm, ch.joeakeem.myconotes.domain.Tek.class.getName() + ".images");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -80,9 +80,9 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="instructions.title">
+          <th scope="col" jhiSortBy="tek.title">
             <div class="d-flex">
-              <span jhiTranslate="mycoNotesApp.experiment.instructions">Instructions</span>
+              <span jhiTranslate="mycoNotesApp.experiment.tek">Tek</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -104,8 +104,8 @@
           <td>{{ experiment.notes }}</td>
           <td>{{ experiment.conductedAt | formatMediumDate }}</td>
           <td>
-            <div *ngIf="experiment.instructions">
-              <a [routerLink]="['/tek', experiment.instructions.id, 'view']">{{ experiment.instructions.title }}</a>
+            <div *ngIf="experiment.tek">
+              <a [routerLink]="['/tek', experiment.tek.id, 'view']">{{ experiment.tek.title }}</a>
             </div>
           </td>
           <td>

@@ -49,8 +49,8 @@ public class Image implements Serializable {
     private Strain strain;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "images", "instructionSet" }, allowSetters = true)
-    private Instruction instruction;
+    @JsonIgnoreProperties(value = { "images" }, allowSetters = true)
+    private Tek tek;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -145,16 +145,16 @@ public class Image implements Serializable {
         return this;
     }
 
-    public Instruction getInstruction() {
-        return this.instruction;
+    public Tek getTek() {
+        return this.tek;
     }
 
-    public void setInstruction(Instruction instruction) {
-        this.instruction = instruction;
+    public void setTek(Tek tek) {
+        this.tek = tek;
     }
 
-    public Image instruction(Instruction instruction) {
-        this.setInstruction(instruction);
+    public Image tek(Tek tek) {
+        this.setTek(tek);
         return this;
     }
 

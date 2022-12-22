@@ -37,11 +37,11 @@ public class Tek implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "instructionSet")
+    @OneToMany(mappedBy = "tek")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @org.springframework.data.annotation.Transient
-    @JsonIgnoreProperties(value = { "images", "instructionSet" }, allowSetters = true)
-    private Set<Instruction> instructions = new HashSet<>();
+    @JsonIgnoreProperties(value = { "observation", "strain", "tek" }, allowSetters = true)
+    private Set<Image> images = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -84,34 +84,34 @@ public class Tek implements Serializable {
         this.description = description;
     }
 
-    public Set<Instruction> getInstructions() {
-        return this.instructions;
+    public Set<Image> getImages() {
+        return this.images;
     }
 
-    public void setInstructions(Set<Instruction> instructions) {
-        if (this.instructions != null) {
-            this.instructions.forEach(i -> i.setInstructionSet(null));
+    public void setImages(Set<Image> images) {
+        if (this.images != null) {
+            this.images.forEach(i -> i.setTek(null));
         }
-        if (instructions != null) {
-            instructions.forEach(i -> i.setInstructionSet(this));
+        if (images != null) {
+            images.forEach(i -> i.setTek(this));
         }
-        this.instructions = instructions;
+        this.images = images;
     }
 
-    public Tek instructions(Set<Instruction> instructions) {
-        this.setInstructions(instructions);
+    public Tek images(Set<Image> images) {
+        this.setImages(images);
         return this;
     }
 
-    public Tek addInstructions(Instruction instruction) {
-        this.instructions.add(instruction);
-        instruction.setInstructionSet(this);
+    public Tek addImages(Image image) {
+        this.images.add(image);
+        image.setTek(this);
         return this;
     }
 
-    public Tek removeInstructions(Instruction instruction) {
-        this.instructions.remove(instruction);
-        instruction.setInstructionSet(null);
+    public Tek removeImages(Image image) {
+        this.images.remove(image);
+        image.setTek(null);
         return this;
     }
 

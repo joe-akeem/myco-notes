@@ -50,8 +50,8 @@ public class Experiment implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "instructions" }, allowSetters = true)
-    private Tek instructions;
+    @JsonIgnoreProperties(value = { "images" }, allowSetters = true)
+    private Tek tek;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -75,7 +75,7 @@ public class Experiment implements Serializable {
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "observations", "instructions", "conductedBy", "involvedStrains", "precedingExperiments", "followupExperiments" },
+        value = { "observations", "tek", "conductedBy", "involvedStrains", "precedingExperiments", "followupExperiments" },
         allowSetters = true
     )
     private Set<Experiment> precedingExperiments = new HashSet<>();
@@ -84,7 +84,7 @@ public class Experiment implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @org.springframework.data.annotation.Transient
     @JsonIgnoreProperties(
-        value = { "observations", "instructions", "conductedBy", "involvedStrains", "precedingExperiments", "followupExperiments" },
+        value = { "observations", "tek", "conductedBy", "involvedStrains", "precedingExperiments", "followupExperiments" },
         allowSetters = true
     )
     private Set<Experiment> followupExperiments = new HashSet<>();
@@ -174,16 +174,16 @@ public class Experiment implements Serializable {
         return this;
     }
 
-    public Tek getInstructions() {
-        return this.instructions;
+    public Tek getTek() {
+        return this.tek;
     }
 
-    public void setInstructions(Tek tek) {
-        this.instructions = tek;
+    public void setTek(Tek tek) {
+        this.tek = tek;
     }
 
-    public Experiment instructions(Tek tek) {
-        this.setInstructions(tek);
+    public Experiment tek(Tek tek) {
+        this.setTek(tek);
         return this;
     }
 

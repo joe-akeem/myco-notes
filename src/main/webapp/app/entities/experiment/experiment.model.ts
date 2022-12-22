@@ -8,7 +8,7 @@ export interface IExperiment {
   title?: string | null;
   notes?: string | null;
   conductedAt?: dayjs.Dayjs | null;
-  instructions?: Pick<ITek, 'id' | 'title'> | null;
+  tek?: Pick<ITek, 'id' | 'title'> | null;
   conductedBy?: Pick<IUser, 'id' | 'login'> | null;
   involvedStrains?: Pick<IStrain, 'id' | 'name'>[] | null;
   precedingExperiments?: Pick<IExperiment, 'id' | 'title'>[] | null;

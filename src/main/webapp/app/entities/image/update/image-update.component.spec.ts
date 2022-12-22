@@ -13,8 +13,8 @@ import { IObservation } from 'app/entities/observation/observation.model';
 import { ObservationService } from 'app/entities/observation/service/observation.service';
 import { IStrain } from 'app/entities/strain/strain.model';
 import { StrainService } from 'app/entities/strain/service/strain.service';
-import { IInstruction } from 'app/entities/instruction/instruction.model';
-import { InstructionService } from 'app/entities/instruction/service/instruction.service';
+import { ITek } from 'app/entities/tek/tek.model';
+import { TekService } from 'app/entities/tek/service/tek.service';
 
 import { ImageUpdateComponent } from './image-update.component';
 
@@ -26,7 +26,7 @@ describe('Image Management Update Component', () => {
   let imageService: ImageService;
   let observationService: ObservationService;
   let strainService: StrainService;
-  let instructionService: InstructionService;
+  let tekService: TekService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -51,7 +51,7 @@ describe('Image Management Update Component', () => {
     imageService = TestBed.inject(ImageService);
     observationService = TestBed.inject(ObservationService);
     strainService = TestBed.inject(StrainService);
-    instructionService = TestBed.inject(InstructionService);
+    tekService = TestBed.inject(TekService);
 
     comp = fixture.componentInstance;
   });
@@ -101,26 +101,23 @@ describe('Image Management Update Component', () => {
       expect(comp.strainsSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call Instruction query and add missing value', () => {
+    it('Should call Tek query and add missing value', () => {
       const image: IImage = { id: 456 };
-      const instruction: IInstruction = { id: 22012 };
-      image.instruction = instruction;
+      const tek: ITek = { id: 56095 };
+      image.tek = tek;
 
-      const instructionCollection: IInstruction[] = [{ id: 64181 }];
-      jest.spyOn(instructionService, 'query').mockReturnValue(of(new HttpResponse({ body: instructionCollection })));
-      const additionalInstructions = [instruction];
-      const expectedCollection: IInstruction[] = [...additionalInstructions, ...instructionCollection];
-      jest.spyOn(instructionService, 'addInstructionToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const tekCollection: ITek[] = [{ id: 86079 }];
+      jest.spyOn(tekService, 'query').mockReturnValue(of(new HttpResponse({ body: tekCollection })));
+      const additionalTeks = [tek];
+      const expectedCollection: ITek[] = [...additionalTeks, ...tekCollection];
+      jest.spyOn(tekService, 'addTekToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ image });
       comp.ngOnInit();
 
-      expect(instructionService.query).toHaveBeenCalled();
-      expect(instructionService.addInstructionToCollectionIfMissing).toHaveBeenCalledWith(
-        instructionCollection,
-        ...additionalInstructions.map(expect.objectContaining)
-      );
-      expect(comp.instructionsSharedCollection).toEqual(expectedCollection);
+      expect(tekService.query).toHaveBeenCalled();
+      expect(tekService.addTekToCollectionIfMissing).toHaveBeenCalledWith(tekCollection, ...additionalTeks.map(expect.objectContaining));
+      expect(comp.teksSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
@@ -129,15 +126,15 @@ describe('Image Management Update Component', () => {
       image.observation = observation;
       const strain: IStrain = { id: 37821 };
       image.strain = strain;
-      const instruction: IInstruction = { id: 20899 };
-      image.instruction = instruction;
+      const tek: ITek = { id: 61203 };
+      image.tek = tek;
 
       activatedRoute.data = of({ image });
       comp.ngOnInit();
 
       expect(comp.observationsSharedCollection).toContain(observation);
       expect(comp.strainsSharedCollection).toContain(strain);
-      expect(comp.instructionsSharedCollection).toContain(instruction);
+      expect(comp.teksSharedCollection).toContain(tek);
       expect(comp.image).toEqual(image);
     });
   });
@@ -231,13 +228,13 @@ describe('Image Management Update Component', () => {
       });
     });
 
-    describe('compareInstruction', () => {
-      it('Should forward to instructionService', () => {
+    describe('compareTek', () => {
+      it('Should forward to tekService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(instructionService, 'compareInstruction');
-        comp.compareInstruction(entity, entity2);
-        expect(instructionService.compareInstruction).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(tekService, 'compareTek');
+        comp.compareTek(entity, entity2);
+        expect(tekService.compareTek).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

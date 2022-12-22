@@ -42,9 +42,9 @@
     },
     {
       "otherEntityField": "title",
-      "otherEntityName": "instruction",
+      "otherEntityName": "tek",
       "otherEntityRelationshipName": "images",
-      "relationshipName": "instruction",
+      "relationshipName": "tek",
       "relationshipType": "many-to-one"
     }
   ],

@@ -30,11 +30,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./tek/tek.module').then(m => m.TekModule),
       },
       {
-        path: 'instruction',
-        data: { pageTitle: 'mycoNotesApp.instruction.home.title' },
-        loadChildren: () => import('./instruction/instruction.module').then(m => m.InstructionModule),
-      },
-      {
         path: 'observation',
         data: { pageTitle: 'mycoNotesApp.observation.home.title' },
         loadChildren: () => import('./observation/observation.module').then(m => m.ObservationModule),

@@ -25,7 +25,7 @@ describe('Image Form Service', () => {
             image: expect.any(Object),
             observation: expect.any(Object),
             strain: expect.any(Object),
-            instruction: expect.any(Object),
+            tek: expect.any(Object),
           })
         );
       });
@@ -41,7 +41,7 @@ describe('Image Form Service', () => {
             image: expect.any(Object),
             observation: expect.any(Object),
             strain: expect.any(Object),
-            instruction: expect.any(Object),
+            tek: expect.any(Object),
           })
         );
       });

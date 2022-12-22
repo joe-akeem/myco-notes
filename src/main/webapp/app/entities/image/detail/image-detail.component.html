@@ -43,10 +43,10 @@
             <a [routerLink]="['/strain', image.strain.id, 'view']">{{ image.strain.name }}</a>
           </div>
         </dd>
-        <dt><span jhiTranslate="mycoNotesApp.image.instruction">Instruction</span></dt>
+        <dt><span jhiTranslate="mycoNotesApp.image.tek">Tek</span></dt>
         <dd>
-          <div *ngIf="image.instruction">
-            <a [routerLink]="['/instruction', image.instruction.id, 'view']">{{ image.instruction.title }}</a>
+          <div *ngIf="image.tek">
+            <a [routerLink]="['/tek', image.tek.id, 'view']">{{ image.tek.title }}</a>
           </div>
         </dd>
       </dl>

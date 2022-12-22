@@ -60,12 +60,12 @@ describe('Experiment Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Tek query and add missing value', () => {
       const experiment: IExperiment = { id: 456 };
-      const instructions: ITek = { id: 32039 };
-      experiment.instructions = instructions;
+      const tek: ITek = { id: 32039 };
+      experiment.tek = tek;
 
       const tekCollection: ITek[] = [{ id: 8270 }];
       jest.spyOn(tekService, 'query').mockReturnValue(of(new HttpResponse({ body: tekCollection })));
-      const additionalTeks = [instructions];
+      const additionalTeks = [tek];
       const expectedCollection: ITek[] = [...additionalTeks, ...tekCollection];
       jest.spyOn(tekService, 'addTekToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -145,8 +145,8 @@ describe('Experiment Management Update Component', () => {
 
     it('Should update editForm', () => {
       const experiment: IExperiment = { id: 456 };
-      const instructions: ITek = { id: 46900 };
-      experiment.instructions = instructions;
+      const tek: ITek = { id: 46900 };
+      experiment.tek = tek;
       const conductedBy: IUser = { id: 48600 };
       experiment.conductedBy = conductedBy;
       const involvedStrains: IStrain = { id: 81971 };
@@ -157,7 +157,7 @@ describe('Experiment Management Update Component', () => {
       activatedRoute.data = of({ experiment });
       comp.ngOnInit();
 
-      expect(comp.teksSharedCollection).toContain(instructions);
+      expect(comp.teksSharedCollection).toContain(tek);
       expect(comp.usersSharedCollection).toContain(conductedBy);
       expect(comp.strainsSharedCollection).toContain(involvedStrains);
       expect(comp.experimentsSharedCollection).toContain(precedingExperiments);

@@ -114,7 +114,7 @@ export class ExperimentUpdateComponent implements OnInit {
     this.experiment = experiment;
     this.experimentFormService.resetForm(this.editForm, experiment);
 
-    this.teksSharedCollection = this.tekService.addTekToCollectionIfMissing<ITek>(this.teksSharedCollection, experiment.instructions);
+    this.teksSharedCollection = this.tekService.addTekToCollectionIfMissing<ITek>(this.teksSharedCollection, experiment.tek);
     this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, experiment.conductedBy);
     this.strainsSharedCollection = this.strainService.addStrainToCollectionIfMissing<IStrain>(
       this.strainsSharedCollection,
@@ -130,7 +130,7 @@ export class ExperimentUpdateComponent implements OnInit {
     this.tekService
       .query()
       .pipe(map((res: HttpResponse<ITek[]>) => res.body ?? []))
-      .pipe(map((teks: ITek[]) => this.tekService.addTekToCollectionIfMissing<ITek>(teks, this.experiment?.instructions)))
+      .pipe(map((teks: ITek[]) => this.tekService.addTekToCollectionIfMissing<ITek>(teks, this.experiment?.tek)))
       .subscribe((teks: ITek[]) => (this.teksSharedCollection = teks));
 
     this.userService

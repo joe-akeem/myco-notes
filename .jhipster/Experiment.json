@@ -37,7 +37,7 @@
     {
       "otherEntityField": "title",
       "otherEntityName": "tek",
-      "relationshipName": "instructions",
+      "relationshipName": "tek",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },

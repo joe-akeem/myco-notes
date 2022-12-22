@@ -57,29 +57,14 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="mycoNotesApp.experiment.instructions" for="field_instructions">Instructions</label>
-          <select
-            class="form-control"
-            id="field_instructions"
-            data-cy="instructions"
-            name="instructions"
-            formControlName="instructions"
-            [compareWith]="compareTek"
-          >
-            <option *ngIf="!editForm.get('instructions')!.value" [ngValue]="null" selected></option>
+          <label class="form-label" jhiTranslate="mycoNotesApp.experiment.tek" for="field_tek">Tek</label>
+          <select class="form-control" id="field_tek" data-cy="tek" name="tek" formControlName="tek" [compareWith]="compareTek">
+            <option *ngIf="!editForm.get('tek')!.value" [ngValue]="null" selected></option>
             <option [ngValue]="tekOption" *ngFor="let tekOption of teksSharedCollection">{{ tekOption.title }}</option>
           </select>
         </div>
-        <div
-          *ngIf="
-            editForm.get(['instructions'])!.invalid && (editForm.get(['instructions'])!.dirty || editForm.get(['instructions'])!.touched)
-          "
-        >
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get(['instructions'])?.errors?.required"
-            jhiTranslate="entity.validation.required"
-          >
+        <div *ngIf="editForm.get(['tek'])!.invalid && (editForm.get(['tek'])!.dirty || editForm.get(['tek'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['tek'])?.errors?.required" jhiTranslate="entity.validation.required">
             This field is required.
           </small>
         </div>

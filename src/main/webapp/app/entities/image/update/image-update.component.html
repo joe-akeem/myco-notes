@@ -100,19 +100,10 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="mycoNotesApp.image.instruction" for="field_instruction">Instruction</label>
-          <select
-            class="form-control"
-            id="field_instruction"
-            data-cy="instruction"
-            name="instruction"
-            formControlName="instruction"
-            [compareWith]="compareInstruction"
-          >
+          <label class="form-label" jhiTranslate="mycoNotesApp.image.tek" for="field_tek">Tek</label>
+          <select class="form-control" id="field_tek" data-cy="tek" name="tek" formControlName="tek" [compareWith]="compareTek">
             <option [ngValue]="null"></option>
-            <option [ngValue]="instructionOption" *ngFor="let instructionOption of instructionsSharedCollection">
-              {{ instructionOption.title }}
-            </option>
+            <option [ngValue]="tekOption" *ngFor="let tekOption of teksSharedCollection">{{ tekOption.title }}</option>
           </select>
         </div>
       </div>

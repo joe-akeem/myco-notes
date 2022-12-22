@@ -33,18 +33,16 @@ public interface ExperimentRepository extends ExperimentRepositoryWithBagRelatio
     }
 
     @Query(
-        value = "select distinct experiment from Experiment experiment left join fetch experiment.instructions left join fetch experiment.conductedBy",
+        value = "select distinct experiment from Experiment experiment left join fetch experiment.tek left join fetch experiment.conductedBy",
         countQuery = "select count(distinct experiment) from Experiment experiment"
     )
     Page<Experiment> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query(
-        "select distinct experiment from Experiment experiment left join fetch experiment.instructions left join fetch experiment.conductedBy"
-    )
+    @Query("select distinct experiment from Experiment experiment left join fetch experiment.tek left join fetch experiment.conductedBy")
     List<Experiment> findAllWithToOneRelationships();
 
     @Query(
-        "select experiment from Experiment experiment left join fetch experiment.instructions left join fetch experiment.conductedBy where experiment.id =:id"
+        "select experiment from Experiment experiment left join fetch experiment.tek left join fetch experiment.conductedBy where experiment.id =:id"
     )
     Optional<Experiment> findOneWithToOneRelationships(@Param("id") Long id);
 }

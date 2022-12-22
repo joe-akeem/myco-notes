@@ -23,7 +23,7 @@
             <column name="conducted_at" type="date">
                 <constraints nullable="false" />
             </column>
-            <column name="instructions_id" type="bigint">
+            <column name="tek_id" type="bigint">
                 <constraints nullable="false" />
             </column>
             <column name="conducted_by_id" type="bigint">
@@ -78,7 +78,7 @@
             <column name="title" type="string"/>
             <column name="notes" type="clob"/>
             <column name="conducted_at" type="date"/>
-            <column name="instructions_id" type="numeric"/>
+            <column name="tek_id" type="numeric"/>
             <column name="conducted_by_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

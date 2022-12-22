@@ -24,9 +24,9 @@
   "relationships": [
     {
       "otherEntityField": "title",
-      "otherEntityName": "instruction",
-      "otherEntityRelationshipName": "instructionSet",
-      "relationshipName": "instructions",
+      "otherEntityName": "image",
+      "otherEntityRelationshipName": "tek",
+      "relationshipName": "images",
       "relationshipType": "one-to-many"
     }
   ],

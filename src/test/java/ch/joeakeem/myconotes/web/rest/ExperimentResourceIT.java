@@ -104,7 +104,7 @@ class ExperimentResourceIT {
         } else {
             tek = TestUtil.findAll(em, Tek.class).get(0);
         }
-        experiment.setInstructions(tek);
+        experiment.setTek(tek);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -130,7 +130,7 @@ class ExperimentResourceIT {
         } else {
             tek = TestUtil.findAll(em, Tek.class).get(0);
         }
-        experiment.setInstructions(tek);
+        experiment.setTek(tek);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);

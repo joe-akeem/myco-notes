@@ -19,7 +19,7 @@
     "enableHibernateCache": true,
     "enableSwaggerCodegen": false,
     "enableTranslation": true,
-    "entities": ["Genus", "Species", "Strain", "Experiment", "Tek", "Instruction", "Observation", "Image"],
+    "entities": ["Genus", "Species", "Strain", "Experiment", "Tek", "Observation", "Image"],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.9.3",

@@ -24,7 +24,7 @@
       "image": "Image",
       "observation": "Observation",
       "strain": "Strain",
-      "instruction": "Instruction"
+      "tek": "Tek"
     }
   }
 }

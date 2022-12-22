@@ -29,11 +29,6 @@ entity Tek {
     description TextBlob
 }
 
-entity Instruction {
-    title String required
-    description TextBlob
-}
-
 entity Observation {
     observationDate LocalDate required
     title String required
@@ -49,18 +44,17 @@ entity Image {
 relationship ManyToOne {
     Species {genus (name) required} to Genus
     Strain {species (name) required} to Species
-    Experiment {instructions (title) required} to Tek
+    Experiment {tek (title) required} to Tek
     Strain {origin (title) required} to Experiment
     Experiment {conductedBy (login) required} to User
 }
 
 
 relationship OneToMany {
-    Tek {instructions (title)} to Instruction {instructionSet (title) required}
     Experiment {observations (title)} to Observation {experiment (title) required}
     Observation {images (title)} to Image {observation (title)}
     Strain {images (title)} to Image {strain (name)}
-    Instruction {images (title)} to Image {instruction (title)}
+    Tek {images (title)} to Image {tek (title)}
 }
 
 relationship ManyToMany {
