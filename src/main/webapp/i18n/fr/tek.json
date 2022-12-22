@@ -1,0 +1,27 @@
+{
+  "mycoNotesApp": {
+    "tek": {
+      "home": {
+        "title": "Teks",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Tek",
+        "createOrEditLabel": "Créer ou éditer un Tek",
+        "search": "Recherche pour Tek",
+        "notFound": "Aucun Tek trouvé"
+      },
+      "created": "Un nouveau Tek a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Tek avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Tek avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Tek {{ id }} ?"
+      },
+      "detail": {
+        "title": "Tek"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "instructions": "Instructions"
+    }
+  }
+}

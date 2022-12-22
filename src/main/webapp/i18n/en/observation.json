@@ -1,0 +1,29 @@
+{
+  "mycoNotesApp": {
+    "observation": {
+      "home": {
+        "title": "Observations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Observation",
+        "createOrEditLabel": "Create or edit a Observation",
+        "search": "Search for Observation",
+        "notFound": "No Observations found"
+      },
+      "created": "A new Observation is created with identifier {{ param }}",
+      "updated": "A Observation is updated with identifier {{ param }}",
+      "deleted": "A Observation is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Observation {{ id }}?"
+      },
+      "detail": {
+        "title": "Observation"
+      },
+      "id": "ID",
+      "observationDate": "Observation Date",
+      "title": "Title",
+      "description": "Description",
+      "images": "Images",
+      "experiment": "Experiment"
+    }
+  }
+}

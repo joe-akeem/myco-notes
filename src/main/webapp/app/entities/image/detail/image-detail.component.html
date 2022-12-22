@@ -1,0 +1,63 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="image">
+      <h2 data-cy="imageDetailsHeading"><span jhiTranslate="mycoNotesApp.image.detail.title">Image</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ image.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.image.title">Title</span></dt>
+        <dd>
+          <span>{{ image.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.image.description">Description</span></dt>
+        <dd>
+          <span>{{ image.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.image.image">Image</span></dt>
+        <dd>
+          <div *ngIf="image.image">
+            <a (click)="openFile(image.image, image.imageContentType)">
+              <img [src]="'data:' + image.imageContentType + ';base64,' + image.image" style="max-width: 100%" alt="image image" />
+            </a>
+            {{ image.imageContentType }}, {{ byteSize(image.image) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.image.observation">Observation</span></dt>
+        <dd>
+          <div *ngIf="image.observation">
+            <a [routerLink]="['/observation', image.observation.id, 'view']">{{ image.observation.title }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.image.strain">Strain</span></dt>
+        <dd>
+          <div *ngIf="image.strain">
+            <a [routerLink]="['/strain', image.strain.id, 'view']">{{ image.strain.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.image.instruction">Instruction</span></dt>
+        <dd>
+          <div *ngIf="image.instruction">
+            <a [routerLink]="['/instruction', image.instruction.id, 'view']">{{ image.instruction.title }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/image', image.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

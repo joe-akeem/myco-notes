@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="experiment">
+      <h2 data-cy="experimentDetailsHeading"><span jhiTranslate="mycoNotesApp.experiment.detail.title">Experiment</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ experiment.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.experiment.title">Title</span></dt>
+        <dd>
+          <span>{{ experiment.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.experiment.notes">Notes</span></dt>
+        <dd>
+          <span>{{ experiment.notes }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.experiment.conductedAt">Conducted At</span></dt>
+        <dd>
+          <span>{{ experiment.conductedAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.experiment.instructions">Instructions</span></dt>
+        <dd>
+          <div *ngIf="experiment.instructions">
+            <a [routerLink]="['/tek', experiment.instructions.id, 'view']">{{ experiment.instructions.title }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.experiment.conductedBy">Conducted By</span></dt>
+        <dd>
+          <span>{{ experiment.conductedBy?.login }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.experiment.involvedStrains">Involved Strains</span></dt>
+        <dd>
+          <span *ngFor="let involvedStrains of experiment.involvedStrains; let last = last">
+            <a [routerLink]="['/strain', involvedStrains.id, 'view']">{{ involvedStrains.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.experiment.precedingExperiments">Preceding Experiments</span></dt>
+        <dd>
+          <span *ngFor="let precedingExperiments of experiment.precedingExperiments; let last = last">
+            <a [routerLink]="['/experiment', precedingExperiments.id, 'view']">{{ precedingExperiments.title }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/experiment', experiment.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

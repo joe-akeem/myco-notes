@@ -1,0 +1,163 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-experiment-heading" data-cy="ExperimentCreateUpdateHeading" jhiTranslate="mycoNotesApp.experiment.home.createOrEditLabel">
+        Create or edit a Experiment
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mycoNotesApp.experiment.title" for="field_title">Title</label>
+          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+          <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mycoNotesApp.experiment.notes" for="field_notes">Notes</label>
+          <textarea class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes"></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mycoNotesApp.experiment.conductedAt" for="field_conductedAt">Conducted At</label>
+          <div class="input-group">
+            <input
+              id="field_conductedAt"
+              data-cy="conductedAt"
+              type="text"
+              class="form-control"
+              name="conductedAt"
+              ngbDatepicker
+              #conductedAtDp="ngbDatepicker"
+              formControlName="conductedAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="conductedAtDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="editForm.get('conductedAt')!.invalid && (editForm.get('conductedAt')!.dirty || editForm.get('conductedAt')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('conductedAt')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mycoNotesApp.experiment.instructions" for="field_instructions">Instructions</label>
+          <select
+            class="form-control"
+            id="field_instructions"
+            data-cy="instructions"
+            name="instructions"
+            formControlName="instructions"
+            [compareWith]="compareTek"
+          >
+            <option *ngIf="!editForm.get('instructions')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="tekOption" *ngFor="let tekOption of teksSharedCollection">{{ tekOption.title }}</option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['instructions'])!.invalid && (editForm.get(['instructions'])!.dirty || editForm.get(['instructions'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['instructions'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mycoNotesApp.experiment.conductedBy" for="field_conductedBy">Conducted By</label>
+          <select
+            class="form-control"
+            id="field_conductedBy"
+            data-cy="conductedBy"
+            name="conductedBy"
+            formControlName="conductedBy"
+            [compareWith]="compareUser"
+          >
+            <option *ngIf="!editForm.get('conductedBy')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.login }}</option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['conductedBy'])!.invalid && (editForm.get(['conductedBy'])!.dirty || editForm.get(['conductedBy'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['conductedBy'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="mycoNotesApp.experiment.involvedStrains" for="field_involvedStrains">Involved Strains</label>
+          <select
+            class="form-control"
+            id="field_involvedStrains"
+            data-cy="involvedStrains"
+            multiple
+            name="involvedStrains"
+            formControlName="involvedStrains"
+            [compareWith]="compareStrain"
+          >
+            <option [ngValue]="strainOption" *ngFor="let strainOption of strainsSharedCollection">{{ strainOption.name }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="mycoNotesApp.experiment.precedingExperiments" for="field_precedingExperiments">Preceding Experiments</label>
+          <select
+            class="form-control"
+            id="field_precedingExperiments"
+            data-cy="precedingExperiments"
+            multiple
+            name="precedingExperiments"
+            formControlName="precedingExperiments"
+            [compareWith]="compareExperiment"
+          >
+            <option [ngValue]="experimentOption" *ngFor="let experimentOption of experimentsSharedCollection">
+              {{ experimentOption.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

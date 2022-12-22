@@ -1,0 +1,31 @@
+{
+  "mycoNotesApp": {
+    "strain": {
+      "home": {
+        "title": "Strains",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Strain",
+        "createOrEditLabel": "Create or edit a Strain",
+        "search": "Search for Strain",
+        "notFound": "No Strains found"
+      },
+      "created": "A new Strain is created with identifier {{ param }}",
+      "updated": "A Strain is updated with identifier {{ param }}",
+      "deleted": "A Strain is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Strain {{ id }}?"
+      },
+      "detail": {
+        "title": "Strain"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "isolatedAt": "Isolated At",
+      "images": "Images",
+      "species": "Species",
+      "origin": "Origin",
+      "experiments": "Experiments"
+    }
+  }
+}

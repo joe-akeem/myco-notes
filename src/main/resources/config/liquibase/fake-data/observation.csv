@@ -1,0 +1,11 @@
+id;observation_date;title;description;experiment_id
+1;2022-12-22;parallelism Identity;../fake-data/blob/hipster.txt;1
+2;2022-12-21;Oklahoma Account;../fake-data/blob/hipster.txt;2
+3;2022-12-21;Associate;../fake-data/blob/hipster.txt;3
+4;2022-12-21;Uganda Fantastic;../fake-data/blob/hipster.txt;4
+5;2022-12-21;Manors;../fake-data/blob/hipster.txt;5
+6;2022-12-21;Personal;../fake-data/blob/hipster.txt;6
+7;2022-12-21;Idaho proactive methodology;../fake-data/blob/hipster.txt;7
+8;2022-12-21;Bedfordshire mobile;../fake-data/blob/hipster.txt;8
+9;2022-12-22;Sheqel Borders;../fake-data/blob/hipster.txt;9
+10;2022-12-21;Licensed Hawaii;../fake-data/blob/hipster.txt;10

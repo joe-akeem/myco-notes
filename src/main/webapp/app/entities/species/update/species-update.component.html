@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-species-heading" data-cy="SpeciesCreateUpdateHeading" jhiTranslate="mycoNotesApp.species.home.createOrEditLabel">
+        Create or edit a Species
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mycoNotesApp.species.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mycoNotesApp.species.commonName" for="field_commonName">Common Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="commonName"
+            id="field_commonName"
+            data-cy="commonName"
+            formControlName="commonName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mycoNotesApp.species.description" for="field_description">Description</label>
+          <textarea
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          ></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mycoNotesApp.species.genus" for="field_genus">Genus</label>
+          <select class="form-control" id="field_genus" data-cy="genus" name="genus" formControlName="genus" [compareWith]="compareGenus">
+            <option *ngIf="!editForm.get('genus')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="genusOption" *ngFor="let genusOption of generaSharedCollection">{{ genusOption.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['genus'])!.invalid && (editForm.get(['genus'])!.dirty || editForm.get(['genus'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['genus'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

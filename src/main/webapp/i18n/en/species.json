@@ -1,0 +1,28 @@
+{
+  "mycoNotesApp": {
+    "species": {
+      "home": {
+        "title": "Species",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Species",
+        "createOrEditLabel": "Create or edit a Species",
+        "search": "Search for Species",
+        "notFound": "No Species found"
+      },
+      "created": "A new Species is created with identifier {{ param }}",
+      "updated": "A Species is updated with identifier {{ param }}",
+      "deleted": "A Species is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Species {{ id }}?"
+      },
+      "detail": {
+        "title": "Species"
+      },
+      "id": "ID",
+      "name": "Name",
+      "commonName": "Common Name",
+      "description": "Description",
+      "genus": "Genus"
+    }
+  }
+}

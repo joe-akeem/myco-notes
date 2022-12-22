@@ -1,0 +1,33 @@
+{
+  "mycoNotesApp": {
+    "experiment": {
+      "home": {
+        "title": "Experiments",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Experiment",
+        "createOrEditLabel": "Créer ou éditer un Experiment",
+        "search": "Recherche pour Experiment",
+        "notFound": "Aucun Experiment trouvé"
+      },
+      "created": "Un nouveau Experiment a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Experiment avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Experiment avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Experiment {{ id }} ?"
+      },
+      "detail": {
+        "title": "Experiment"
+      },
+      "id": "ID",
+      "title": "Title",
+      "notes": "Notes",
+      "conductedAt": "Conducted At",
+      "observations": "Observations",
+      "instructions": "Instructions",
+      "conductedBy": "Conducted By",
+      "involvedStrains": "Involved Strains",
+      "precedingExperiments": "Preceding Experiments",
+      "followupExperiments": "Followup Experiments"
+    }
+  }
+}

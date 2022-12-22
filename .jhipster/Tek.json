@@ -1,0 +1,34 @@
+{
+  "applications": "*",
+  "changelogDate": "20221222103119",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "tek",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Tek",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "instruction",
+      "otherEntityRelationshipName": "instructionSet",
+      "relationshipName": "instructions",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

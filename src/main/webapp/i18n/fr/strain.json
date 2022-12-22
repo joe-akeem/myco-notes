@@ -1,0 +1,31 @@
+{
+  "mycoNotesApp": {
+    "strain": {
+      "home": {
+        "title": "Strains",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Strain",
+        "createOrEditLabel": "Créer ou éditer un Strain",
+        "search": "Recherche pour Strain",
+        "notFound": "Aucun Strain trouvé"
+      },
+      "created": "Un nouveau Strain a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Strain avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Strain avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Strain {{ id }} ?"
+      },
+      "detail": {
+        "title": "Strain"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "isolatedAt": "Isolated At",
+      "images": "Images",
+      "species": "Species",
+      "origin": "Origin",
+      "experiments": "Experiments"
+    }
+  }
+}

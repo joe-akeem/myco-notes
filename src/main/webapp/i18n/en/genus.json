@@ -1,0 +1,27 @@
+{
+  "mycoNotesApp": {
+    "genus": {
+      "home": {
+        "title": "Genera",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Genus",
+        "createOrEditLabel": "Create or edit a Genus",
+        "search": "Search for Genus",
+        "notFound": "No Genera found"
+      },
+      "created": "A new Genus is created with identifier {{ param }}",
+      "updated": "A Genus is updated with identifier {{ param }}",
+      "deleted": "A Genus is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Genus {{ id }}?"
+      },
+      "detail": {
+        "title": "Genus"
+      },
+      "id": "ID",
+      "name": "Name",
+      "commonName": "Common Name",
+      "description": "Description"
+    }
+  }
+}

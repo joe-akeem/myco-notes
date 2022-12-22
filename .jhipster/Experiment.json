@@ -1,0 +1,77 @@
+{
+  "applications": "*",
+  "changelogDate": "20221222103118",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "experiment",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "conductedAt",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Experiment",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "observation",
+      "otherEntityRelationshipName": "experiment",
+      "relationshipName": "observations",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "tek",
+      "relationshipName": "instructions",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "relationshipName": "conductedBy",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "strain",
+      "otherEntityRelationshipName": "experiments",
+      "ownerSide": true,
+      "relationshipName": "involvedStrains",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "experiment",
+      "otherEntityRelationshipName": "followupExperiments",
+      "ownerSide": true,
+      "relationshipName": "precedingExperiments",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "experiment",
+      "otherEntityRelationshipName": "precedingExperiments",
+      "ownerSide": false,
+      "relationshipName": "followupExperiments",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

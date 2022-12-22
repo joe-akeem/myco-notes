@@ -48,6 +48,23 @@ public class CacheConfiguration {
             createCache(cm, ch.joeakeem.myconotes.domain.User.class.getName());
             createCache(cm, ch.joeakeem.myconotes.domain.Authority.class.getName());
             createCache(cm, ch.joeakeem.myconotes.domain.User.class.getName() + ".authorities");
+            createCache(cm, ch.joeakeem.myconotes.domain.Genus.class.getName());
+            createCache(cm, ch.joeakeem.myconotes.domain.Species.class.getName());
+            createCache(cm, ch.joeakeem.myconotes.domain.Strain.class.getName());
+            createCache(cm, ch.joeakeem.myconotes.domain.Strain.class.getName() + ".images");
+            createCache(cm, ch.joeakeem.myconotes.domain.Strain.class.getName() + ".experiments");
+            createCache(cm, ch.joeakeem.myconotes.domain.Experiment.class.getName());
+            createCache(cm, ch.joeakeem.myconotes.domain.Experiment.class.getName() + ".observations");
+            createCache(cm, ch.joeakeem.myconotes.domain.Experiment.class.getName() + ".involvedStrains");
+            createCache(cm, ch.joeakeem.myconotes.domain.Experiment.class.getName() + ".precedingExperiments");
+            createCache(cm, ch.joeakeem.myconotes.domain.Experiment.class.getName() + ".followupExperiments");
+            createCache(cm, ch.joeakeem.myconotes.domain.Tek.class.getName());
+            createCache(cm, ch.joeakeem.myconotes.domain.Tek.class.getName() + ".instructions");
+            createCache(cm, ch.joeakeem.myconotes.domain.Instruction.class.getName());
+            createCache(cm, ch.joeakeem.myconotes.domain.Instruction.class.getName() + ".images");
+            createCache(cm, ch.joeakeem.myconotes.domain.Observation.class.getName());
+            createCache(cm, ch.joeakeem.myconotes.domain.Observation.class.getName() + ".images");
+            createCache(cm, ch.joeakeem.myconotes.domain.Image.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

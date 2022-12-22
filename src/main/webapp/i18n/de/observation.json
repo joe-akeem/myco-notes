@@ -1,0 +1,29 @@
+{
+  "mycoNotesApp": {
+    "observation": {
+      "home": {
+        "title": "Observations",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Observation erstellen",
+        "createOrEditLabel": "Observation erstellen oder bearbeiten",
+        "search": "Suche nach Observation",
+        "notFound": "Keine Observations gefunden"
+      },
+      "created": "Observation erstellt mit ID {{ param }}",
+      "updated": "Observation aktualisiert mit ID {{ param }}",
+      "deleted": "Observation gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Observation {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Observation"
+      },
+      "id": "ID",
+      "observationDate": "Observation Date",
+      "title": "Title",
+      "description": "Description",
+      "images": "Images",
+      "experiment": "Experiment"
+    }
+  }
+}

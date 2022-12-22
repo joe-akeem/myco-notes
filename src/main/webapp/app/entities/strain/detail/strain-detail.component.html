@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="strain">
+      <h2 data-cy="strainDetailsHeading"><span jhiTranslate="mycoNotesApp.strain.detail.title">Strain</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ strain.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.strain.name">Name</span></dt>
+        <dd>
+          <span>{{ strain.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.strain.description">Description</span></dt>
+        <dd>
+          <span>{{ strain.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.strain.isolatedAt">Isolated At</span></dt>
+        <dd>
+          <span>{{ strain.isolatedAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.strain.species">Species</span></dt>
+        <dd>
+          <div *ngIf="strain.species">
+            <a [routerLink]="['/species', strain.species.id, 'view']">{{ strain.species.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mycoNotesApp.strain.origin">Origin</span></dt>
+        <dd>
+          <div *ngIf="strain.origin">
+            <a [routerLink]="['/experiment', strain.origin.id, 'view']">{{ strain.origin.title }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/strain', strain.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

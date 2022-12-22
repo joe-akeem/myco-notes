@@ -1,0 +1,72 @@
+
+
+entity Genus {
+    name String required unique
+    commonName String
+    description TextBlob
+}
+
+entity Species {
+    name String required unique
+    commonName String
+    description TextBlob
+}
+
+entity Strain {
+    name String required unique
+    description TextBlob
+    isolatedAt LocalDate required
+}
+
+entity Experiment {
+    title String required
+    notes TextBlob
+    conductedAt LocalDate required
+}
+
+entity Tek {
+    title String required
+    description TextBlob
+}
+
+entity Instruction {
+    title String required
+    description TextBlob
+}
+
+entity Observation {
+    observationDate LocalDate required
+    title String required
+    description TextBlob
+}
+
+entity Image {
+    title String
+    description TextBlob
+    image ImageBlob
+}
+
+relationship ManyToOne {
+    Species {genus (name) required} to Genus
+    Strain {species (name) required} to Species
+    Experiment {instructions (title) required} to Tek
+    Strain {origin (title) required} to Experiment
+    Experiment {conductedBy (login) required} to User
+}
+
+
+relationship OneToMany {
+    Tek {instructions (title)} to Instruction {instructionSet (title) required}
+    Experiment {observations (title)} to Observation {experiment (title) required}
+    Observation {images (title)} to Image {observation (title)}
+    Strain {images (title)} to Image {strain (name)}
+    Instruction {images (title)} to Image {instruction (title)}
+}
+
+relationship ManyToMany {
+    Experiment {involvedStrains (name)} to Strain {experiments (title)}
+    Experiment {precedingExperiments (title)} to Experiment {followupExperiments (title)}
+}
+
+paginate all with pagination
+service all with serviceImpl

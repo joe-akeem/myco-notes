@@ -1,0 +1,30 @@
+{
+  "mycoNotesApp": {
+    "image": {
+      "home": {
+        "title": "Images",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Image erstellen",
+        "createOrEditLabel": "Image erstellen oder bearbeiten",
+        "search": "Suche nach Image",
+        "notFound": "Keine Images gefunden"
+      },
+      "created": "Image erstellt mit ID {{ param }}",
+      "updated": "Image aktualisiert mit ID {{ param }}",
+      "deleted": "Image gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Image {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Image"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "image": "Image",
+      "observation": "Observation",
+      "strain": "Strain",
+      "instruction": "Instruction"
+    }
+  }
+}

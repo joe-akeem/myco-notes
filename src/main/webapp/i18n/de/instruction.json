@@ -1,0 +1,28 @@
+{
+  "mycoNotesApp": {
+    "instruction": {
+      "home": {
+        "title": "Instructions",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Instruction erstellen",
+        "createOrEditLabel": "Instruction erstellen oder bearbeiten",
+        "search": "Suche nach Instruction",
+        "notFound": "Keine Instructions gefunden"
+      },
+      "created": "Instruction erstellt mit ID {{ param }}",
+      "updated": "Instruction aktualisiert mit ID {{ param }}",
+      "deleted": "Instruction gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Instruction {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Instruction"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "images": "Images",
+      "instructionSet": "Instruction Set"
+    }
+  }
+}

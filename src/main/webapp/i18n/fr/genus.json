@@ -1,0 +1,27 @@
+{
+  "mycoNotesApp": {
+    "genus": {
+      "home": {
+        "title": "Genera",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Genus",
+        "createOrEditLabel": "Créer ou éditer un Genus",
+        "search": "Recherche pour Genus",
+        "notFound": "Aucun Genus trouvé"
+      },
+      "created": "Un nouveau Genus a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Genus avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Genus avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Genus {{ id }} ?"
+      },
+      "detail": {
+        "title": "Genus"
+      },
+      "id": "ID",
+      "name": "Name",
+      "commonName": "Common Name",
+      "description": "Description"
+    }
+  }
+}

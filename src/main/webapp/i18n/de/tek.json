@@ -1,0 +1,27 @@
+{
+  "mycoNotesApp": {
+    "tek": {
+      "home": {
+        "title": "Teks",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Tek erstellen",
+        "createOrEditLabel": "Tek erstellen oder bearbeiten",
+        "search": "Suche nach Tek",
+        "notFound": "Keine Teks gefunden"
+      },
+      "created": "Tek erstellt mit ID {{ param }}",
+      "updated": "Tek aktualisiert mit ID {{ param }}",
+      "deleted": "Tek gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Tek {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Tek"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "instructions": "Instructions"
+    }
+  }
+}

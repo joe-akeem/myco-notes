@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Experiment.
+    -->
+    <changeSet id="20221222103118-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="instructions_id"
+                                 baseTableName="experiment"
+                                 constraintName="fk_experiment__instructions_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tek"/>
+
+        <addForeignKeyConstraint baseColumnNames="conducted_by_id"
+                                 baseTableName="experiment"
+                                 constraintName="fk_experiment__conducted_by_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="experiment_id"
+                                 baseTableName="rel_experiment__involved_strains"
+                                 constraintName="fk_rel_experiment__involved_strains__experiment_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="experiment"/>
+
+        <addForeignKeyConstraint baseColumnNames="involved_strains_id"
+                                 baseTableName="rel_experiment__involved_strains"
+                                 constraintName="fk_rel_experiment__involved_strains__involved_strains_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="strain"/>
+
+        <addForeignKeyConstraint baseColumnNames="experiment_id"
+                                 baseTableName="rel_experiment__preceding_experiments"
+                                 constraintName="fk_rel_experiment__preceding_experiments__experiment_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="experiment"/>
+
+        <addForeignKeyConstraint baseColumnNames="preceding_experiments_id"
+                                 baseTableName="rel_experiment__preceding_experiments"
+                                 constraintName="fk_rel_experiment__preceding_ex__preceding_experiments_24_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="experiment"/>
+    </changeSet>
+</databaseChangeLog>
