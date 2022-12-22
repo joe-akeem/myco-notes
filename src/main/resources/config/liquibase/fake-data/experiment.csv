@@ -1,11 +1,2 @@
 id;title;notes;conducted_at;instructions_id;conducted_by_id
-1;Security Cotton;../fake-data/blob/hipster.txt;2022-12-21;1;1
-2;XML;../fake-data/blob/hipster.txt;2022-12-21;2;2
-3;violet microchip;../fake-data/blob/hipster.txt;2022-12-22;3;2
-4;Namibia;../fake-data/blob/hipster.txt;2022-12-21;4;2
-5;drive Pennsylvania;../fake-data/blob/hipster.txt;2022-12-21;5;2
-6;yellow indigo New;../fake-data/blob/hipster.txt;2022-12-22;6;2
-7;Sharable Supervisor;../fake-data/blob/hipster.txt;2022-12-22;7;2
-8;foreground Product;../fake-data/blob/hipster.txt;2022-12-22;8;2
-9;PCI Human;../fake-data/blob/hipster.txt;2022-12-22;9;1
-10;Tasty;../fake-data/blob/hipster.txt;2022-12-21;10;2
+
