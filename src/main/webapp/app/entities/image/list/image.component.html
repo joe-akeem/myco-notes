@@ -48,6 +48,8 @@
     </div>
   </form>
 
+  <jhi-filter [filters]="filters"></jhi-filter>
+
   <div class="alert alert-warning" id="no-result" *ngIf="images?.length === 0">
     <span jhiTranslate="mycoNotesApp.image.home.notFound">No Images found</span>
   </div>

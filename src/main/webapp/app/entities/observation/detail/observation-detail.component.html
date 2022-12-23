@@ -41,6 +41,22 @@
       <button type="button" [routerLink]="['/observation', observation.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
+
+      <button
+        type="submit"
+        [routerLink]="['/image']"
+        [queryParams]="{ 'filter[observationId.in]': observation.id }"
+        class="btn btn-info"
+        data-cy="filterOtherEntityButton"
+      >
+        <fa-icon icon="eye"></fa-icon>
+        <span
+          class="d-none d-md-inline"
+          jhiTranslate="entity.action.show"
+          [translateValues]="{ otherEntity: ('mycoNotesApp.observation.images' | translate) }"
+          >Show Image</span
+        >
+      </button>
     </div>
   </div>
 </div>

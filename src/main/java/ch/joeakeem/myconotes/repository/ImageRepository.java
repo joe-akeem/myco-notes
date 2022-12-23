@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data JPA repository for the Image entity.
  */
 @Repository
-public interface ImageRepository extends JpaRepository<Image, Long> {
+public interface ImageRepository extends JpaRepository<Image, Long>, JpaSpecificationExecutor<Image> {
     default Optional<Image> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);
     }

@@ -9,9 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import ch.joeakeem.myconotes.IntegrationTest;
 import ch.joeakeem.myconotes.domain.Image;
+import ch.joeakeem.myconotes.domain.Observation;
+import ch.joeakeem.myconotes.domain.Strain;
+import ch.joeakeem.myconotes.domain.Tek;
 import ch.joeakeem.myconotes.repository.ImageRepository;
 import ch.joeakeem.myconotes.repository.search.ImageSearchRepository;
 import ch.joeakeem.myconotes.service.ImageService;
+import ch.joeakeem.myconotes.service.criteria.ImageCriteria;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -224,6 +228,199 @@ class ImageResourceIT {
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
             .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)));
+    }
+
+    @Test
+    @Transactional
+    void getImagesByIdFiltering() throws Exception {
+        // Initialize the database
+        imageRepository.saveAndFlush(image);
+
+        Long id = image.getId();
+
+        defaultImageShouldBeFound("id.equals=" + id);
+        defaultImageShouldNotBeFound("id.notEquals=" + id);
+
+        defaultImageShouldBeFound("id.greaterThanOrEqual=" + id);
+        defaultImageShouldNotBeFound("id.greaterThan=" + id);
+
+        defaultImageShouldBeFound("id.lessThanOrEqual=" + id);
+        defaultImageShouldNotBeFound("id.lessThan=" + id);
+    }
+
+    @Test
+    @Transactional
+    void getAllImagesByTitleIsEqualToSomething() throws Exception {
+        // Initialize the database
+        imageRepository.saveAndFlush(image);
+
+        // Get all the imageList where title equals to DEFAULT_TITLE
+        defaultImageShouldBeFound("title.equals=" + DEFAULT_TITLE);
+
+        // Get all the imageList where title equals to UPDATED_TITLE
+        defaultImageShouldNotBeFound("title.equals=" + UPDATED_TITLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllImagesByTitleIsInShouldWork() throws Exception {
+        // Initialize the database
+        imageRepository.saveAndFlush(image);
+
+        // Get all the imageList where title in DEFAULT_TITLE or UPDATED_TITLE
+        defaultImageShouldBeFound("title.in=" + DEFAULT_TITLE + "," + UPDATED_TITLE);
+
+        // Get all the imageList where title equals to UPDATED_TITLE
+        defaultImageShouldNotBeFound("title.in=" + UPDATED_TITLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllImagesByTitleIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        imageRepository.saveAndFlush(image);
+
+        // Get all the imageList where title is not null
+        defaultImageShouldBeFound("title.specified=true");
+
+        // Get all the imageList where title is null
+        defaultImageShouldNotBeFound("title.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllImagesByTitleContainsSomething() throws Exception {
+        // Initialize the database
+        imageRepository.saveAndFlush(image);
+
+        // Get all the imageList where title contains DEFAULT_TITLE
+        defaultImageShouldBeFound("title.contains=" + DEFAULT_TITLE);
+
+        // Get all the imageList where title contains UPDATED_TITLE
+        defaultImageShouldNotBeFound("title.contains=" + UPDATED_TITLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllImagesByTitleNotContainsSomething() throws Exception {
+        // Initialize the database
+        imageRepository.saveAndFlush(image);
+
+        // Get all the imageList where title does not contain DEFAULT_TITLE
+        defaultImageShouldNotBeFound("title.doesNotContain=" + DEFAULT_TITLE);
+
+        // Get all the imageList where title does not contain UPDATED_TITLE
+        defaultImageShouldBeFound("title.doesNotContain=" + UPDATED_TITLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllImagesByObservationIsEqualToSomething() throws Exception {
+        Observation observation;
+        if (TestUtil.findAll(em, Observation.class).isEmpty()) {
+            imageRepository.saveAndFlush(image);
+            observation = ObservationResourceIT.createEntity(em);
+        } else {
+            observation = TestUtil.findAll(em, Observation.class).get(0);
+        }
+        em.persist(observation);
+        em.flush();
+        image.setObservation(observation);
+        imageRepository.saveAndFlush(image);
+        Long observationId = observation.getId();
+
+        // Get all the imageList where observation equals to observationId
+        defaultImageShouldBeFound("observationId.equals=" + observationId);
+
+        // Get all the imageList where observation equals to (observationId + 1)
+        defaultImageShouldNotBeFound("observationId.equals=" + (observationId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllImagesByStrainIsEqualToSomething() throws Exception {
+        Strain strain;
+        if (TestUtil.findAll(em, Strain.class).isEmpty()) {
+            imageRepository.saveAndFlush(image);
+            strain = StrainResourceIT.createEntity(em);
+        } else {
+            strain = TestUtil.findAll(em, Strain.class).get(0);
+        }
+        em.persist(strain);
+        em.flush();
+        image.setStrain(strain);
+        imageRepository.saveAndFlush(image);
+        Long strainId = strain.getId();
+
+        // Get all the imageList where strain equals to strainId
+        defaultImageShouldBeFound("strainId.equals=" + strainId);
+
+        // Get all the imageList where strain equals to (strainId + 1)
+        defaultImageShouldNotBeFound("strainId.equals=" + (strainId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllImagesByTekIsEqualToSomething() throws Exception {
+        Tek tek;
+        if (TestUtil.findAll(em, Tek.class).isEmpty()) {
+            imageRepository.saveAndFlush(image);
+            tek = TekResourceIT.createEntity(em);
+        } else {
+            tek = TestUtil.findAll(em, Tek.class).get(0);
+        }
+        em.persist(tek);
+        em.flush();
+        image.setTek(tek);
+        imageRepository.saveAndFlush(image);
+        Long tekId = tek.getId();
+
+        // Get all the imageList where tek equals to tekId
+        defaultImageShouldBeFound("tekId.equals=" + tekId);
+
+        // Get all the imageList where tek equals to (tekId + 1)
+        defaultImageShouldNotBeFound("tekId.equals=" + (tekId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned.
+     */
+    private void defaultImageShouldBeFound(String filter) throws Exception {
+        restImageMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(image.getId().intValue())))
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
+
+        // Check, that the count call also returns 1
+        restImageMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned.
+     */
+    private void defaultImageShouldNotBeFound(String filter) throws Exception {
+        restImageMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restImageMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("0"));
     }
 
     @Test

@@ -108,6 +108,21 @@
             <div class="btn-group">
               <button
                 type="submit"
+                [routerLink]="['/image']"
+                [queryParams]="{ 'filter[observationId.in]': observation.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('mycoNotesApp.observation.images' | translate) }"
+                  >Show Image</span
+                >
+              </button>
+              <button
+                type="submit"
                 [routerLink]="['/observation', observation.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"

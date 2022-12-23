@@ -21,7 +21,7 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "Image",
   "pagination": "pagination",
   "readOnly": false,

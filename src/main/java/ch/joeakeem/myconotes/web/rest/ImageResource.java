@@ -4,21 +4,21 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 
 import ch.joeakeem.myconotes.domain.Image;
 import ch.joeakeem.myconotes.repository.ImageRepository;
+import ch.joeakeem.myconotes.service.ImageQueryService;
 import ch.joeakeem.myconotes.service.ImageService;
+import ch.joeakeem.myconotes.service.criteria.ImageCriteria;
 import ch.joeakeem.myconotes.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -44,9 +44,12 @@ public class ImageResource {
 
     private final ImageRepository imageRepository;
 
-    public ImageResource(ImageService imageService, ImageRepository imageRepository) {
+    private final ImageQueryService imageQueryService;
+
+    public ImageResource(ImageService imageService, ImageRepository imageRepository, ImageQueryService imageQueryService) {
         this.imageService = imageService;
         this.imageRepository = imageRepository;
+        this.imageQueryService = imageQueryService;
     }
 
     /**
@@ -139,23 +142,30 @@ public class ImageResource {
      * {@code GET  /images} : get all the images.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of images in body.
      */
     @GetMapping("/images")
     public ResponseEntity<List<Image>> getAllImages(
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
-        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+        ImageCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get a page of Images");
-        Page<Image> page;
-        if (eagerload) {
-            page = imageService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = imageService.findAll(pageable);
-        }
+        log.debug("REST request to get Images by criteria: {}", criteria);
+        Page<Image> page = imageQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /images/count} : count all the images.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/images/count")
+    public ResponseEntity<Long> countImages(ImageCriteria criteria) {
+        log.debug("REST request to count Images by criteria: {}", criteria);
+        return ResponseEntity.ok().body(imageQueryService.countByCriteria(criteria));
     }
 
     /**
