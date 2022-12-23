@@ -71,7 +71,9 @@
             [compareWith]="compareSpecies"
           >
             <option *ngIf="!editForm.get('species')!.value" [ngValue]="null" selected></option>
-            <option [ngValue]="speciesOption" *ngFor="let speciesOption of speciesSharedCollection">{{ speciesOption.name }}</option>
+            <option [ngValue]="speciesOption" *ngFor="let speciesOption of speciesSharedCollection">
+              {{ speciesOption.genus?.name }} {{ speciesOption.name }}
+            </option>
           </select>
         </div>
         <div *ngIf="editForm.get(['species'])!.invalid && (editForm.get(['species'])!.dirty || editForm.get(['species'])!.touched)">
@@ -96,7 +98,7 @@
           >
             <option *ngIf="!editForm.get('origin')!.value" [ngValue]="null" selected></option>
             <option [ngValue]="experimentOption" *ngFor="let experimentOption of experimentsSharedCollection">
-              {{ experimentOption.title }}
+              {{ experimentOption.id }}: {{ experimentOption.title }}
             </option>
           </select>
         </div>

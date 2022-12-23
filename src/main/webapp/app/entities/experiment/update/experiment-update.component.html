@@ -122,7 +122,7 @@
             [compareWith]="compareExperiment"
           >
             <option [ngValue]="experimentOption" *ngFor="let experimentOption of experimentsSharedCollection">
-              {{ experimentOption.title }}
+              {{ experimentOption.id }}: {{ experimentOption.title }}
             </option>
           </select>
         </div>
