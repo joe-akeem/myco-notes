@@ -1,0 +1,8 @@
+id;name;common_name;description;genus_id
+1;ostreatus;Oyster Mushroom, Oyster Fungus, or Hiratake;../data/blob/ostreatus.txt;1
+2;edodes;Shiitake;../data/blob/edodes.txt;2
+3;versicolor;Turkey Tail;../data/blob/versicolor.txt;3
+4;cubensis;Golden Top;../data/blob/cubensis.txt;4
+5;lucidum;Reishi;../data/blob/lucidum.txt;5
+6;citrinopileatus;Golden Oyster Mushroom;../data/blob/citrinopileatus.txt;1
+7;djamor;Pink Oyster Mushroom;../data/blob/djamor.txt;1

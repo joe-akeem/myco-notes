@@ -1,0 +1,6 @@
+id;name;common_name;description
+1;Pleurotus;;../data/blob/pleurotus.txt
+2;Lentinula;;../data/blob/lentinula.txt
+3;Trametes;;../data/blob/trametes.txt
+4;Psilocybe;;../data/blob/psilocybe.txt
+5;Ganoderma;Shelf Mushrooms or Bracket Fungi;../data/blob/ganoderma.txt
