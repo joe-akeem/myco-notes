@@ -115,6 +115,21 @@
             <div class="btn-group">
               <button
                 type="submit"
+                [routerLink]="['/observation']"
+                [queryParams]="{ 'filter[experimentId.in]': experiment.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('mycoNotesApp.experiment.observations' | translate) }"
+                  >Show Observation</span
+                >
+              </button>
+              <button
+                type="submit"
                 [routerLink]="['/experiment', experiment.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
