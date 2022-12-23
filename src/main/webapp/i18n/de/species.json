@@ -2,27 +2,27 @@
   "mycoNotesApp": {
     "species": {
       "home": {
-        "title": "Species",
+        "title": "Spezies",
         "refreshListLabel": "Liste aktualisieren",
-        "createLabel": "Species erstellen",
-        "createOrEditLabel": "Species erstellen oder bearbeiten",
-        "search": "Suche nach Species",
-        "notFound": "Keine Species gefunden"
+        "createLabel": "Spezies erstellen",
+        "createOrEditLabel": "Spezies erstellen oder bearbeiten",
+        "search": "Suche nach Spezies",
+        "notFound": "Keine Spezies gefunden"
       },
-      "created": "Species erstellt mit ID {{ param }}",
-      "updated": "Species aktualisiert mit ID {{ param }}",
-      "deleted": "Species gelöscht mit ID {{ param }}",
+      "created": "Spezies erstellt mit ID {{ param }}",
+      "updated": "Spezies aktualisiert mit ID {{ param }}",
+      "deleted": "Spezies gelöscht mit ID {{ param }}",
       "delete": {
-        "question": "Soll Species {{ id }} wirklich dauerhaft gelöscht werden?"
+        "question": "Soll Spezies {{ id }} wirklich dauerhaft gelöscht werden?"
       },
       "detail": {
-        "title": "Species"
+        "title": "Spezies"
       },
       "id": "ID",
       "name": "Name",
-      "commonName": "Common Name",
-      "description": "Description",
-      "genus": "Genus"
+      "commonName": "Üblicher Name",
+      "description": "Beschreibung",
+      "genus": "Gattung"
     }
   }
 }
