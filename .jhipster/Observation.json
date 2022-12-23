@@ -22,7 +22,7 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "Observation",
   "pagination": "pagination",
   "readOnly": false,

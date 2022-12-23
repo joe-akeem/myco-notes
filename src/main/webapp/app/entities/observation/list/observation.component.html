@@ -50,6 +50,8 @@
     </div>
   </form>
 
+  <jhi-filter [filters]="filters"></jhi-filter>
+
   <div class="alert alert-warning" id="no-result" *ngIf="observations?.length === 0">
     <span jhiTranslate="mycoNotesApp.observation.home.notFound">No Observations found</span>
   </div>

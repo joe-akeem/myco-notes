@@ -47,6 +47,22 @@
       <button type="button" [routerLink]="['/strain', strain.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
+
+      <button
+        type="submit"
+        [routerLink]="['/image']"
+        [queryParams]="{ 'filter[strainId.in]': strain.id }"
+        class="btn btn-info"
+        data-cy="filterOtherEntityButton"
+      >
+        <fa-icon icon="eye"></fa-icon>
+        <span
+          class="d-none d-md-inline"
+          jhiTranslate="entity.action.show"
+          [translateValues]="{ otherEntity: ('mycoNotesApp.strain.images' | translate) }"
+          >Show Image</span
+        >
+      </button>
     </div>
   </div>
 </div>

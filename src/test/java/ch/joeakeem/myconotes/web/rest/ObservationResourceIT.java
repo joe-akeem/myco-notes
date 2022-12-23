@@ -9,10 +9,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import ch.joeakeem.myconotes.IntegrationTest;
 import ch.joeakeem.myconotes.domain.Experiment;
+import ch.joeakeem.myconotes.domain.Image;
 import ch.joeakeem.myconotes.domain.Observation;
 import ch.joeakeem.myconotes.repository.ObservationRepository;
 import ch.joeakeem.myconotes.repository.search.ObservationSearchRepository;
 import ch.joeakeem.myconotes.service.ObservationService;
+import ch.joeakeem.myconotes.service.criteria.ObservationCriteria;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ class ObservationResourceIT {
 
     private static final LocalDate DEFAULT_OBSERVATION_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_OBSERVATION_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate SMALLER_OBSERVATION_DATE = LocalDate.ofEpochDay(-1L);
 
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
@@ -280,6 +283,266 @@ class ObservationResourceIT {
             .andExpect(jsonPath("$.observationDate").value(DEFAULT_OBSERVATION_DATE.toString()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
+    }
+
+    @Test
+    @Transactional
+    void getObservationsByIdFiltering() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        Long id = observation.getId();
+
+        defaultObservationShouldBeFound("id.equals=" + id);
+        defaultObservationShouldNotBeFound("id.notEquals=" + id);
+
+        defaultObservationShouldBeFound("id.greaterThanOrEqual=" + id);
+        defaultObservationShouldNotBeFound("id.greaterThan=" + id);
+
+        defaultObservationShouldBeFound("id.lessThanOrEqual=" + id);
+        defaultObservationShouldNotBeFound("id.lessThan=" + id);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByObservationDateIsEqualToSomething() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where observationDate equals to DEFAULT_OBSERVATION_DATE
+        defaultObservationShouldBeFound("observationDate.equals=" + DEFAULT_OBSERVATION_DATE);
+
+        // Get all the observationList where observationDate equals to UPDATED_OBSERVATION_DATE
+        defaultObservationShouldNotBeFound("observationDate.equals=" + UPDATED_OBSERVATION_DATE);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByObservationDateIsInShouldWork() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where observationDate in DEFAULT_OBSERVATION_DATE or UPDATED_OBSERVATION_DATE
+        defaultObservationShouldBeFound("observationDate.in=" + DEFAULT_OBSERVATION_DATE + "," + UPDATED_OBSERVATION_DATE);
+
+        // Get all the observationList where observationDate equals to UPDATED_OBSERVATION_DATE
+        defaultObservationShouldNotBeFound("observationDate.in=" + UPDATED_OBSERVATION_DATE);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByObservationDateIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where observationDate is not null
+        defaultObservationShouldBeFound("observationDate.specified=true");
+
+        // Get all the observationList where observationDate is null
+        defaultObservationShouldNotBeFound("observationDate.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByObservationDateIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where observationDate is greater than or equal to DEFAULT_OBSERVATION_DATE
+        defaultObservationShouldBeFound("observationDate.greaterThanOrEqual=" + DEFAULT_OBSERVATION_DATE);
+
+        // Get all the observationList where observationDate is greater than or equal to UPDATED_OBSERVATION_DATE
+        defaultObservationShouldNotBeFound("observationDate.greaterThanOrEqual=" + UPDATED_OBSERVATION_DATE);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByObservationDateIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where observationDate is less than or equal to DEFAULT_OBSERVATION_DATE
+        defaultObservationShouldBeFound("observationDate.lessThanOrEqual=" + DEFAULT_OBSERVATION_DATE);
+
+        // Get all the observationList where observationDate is less than or equal to SMALLER_OBSERVATION_DATE
+        defaultObservationShouldNotBeFound("observationDate.lessThanOrEqual=" + SMALLER_OBSERVATION_DATE);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByObservationDateIsLessThanSomething() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where observationDate is less than DEFAULT_OBSERVATION_DATE
+        defaultObservationShouldNotBeFound("observationDate.lessThan=" + DEFAULT_OBSERVATION_DATE);
+
+        // Get all the observationList where observationDate is less than UPDATED_OBSERVATION_DATE
+        defaultObservationShouldBeFound("observationDate.lessThan=" + UPDATED_OBSERVATION_DATE);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByObservationDateIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where observationDate is greater than DEFAULT_OBSERVATION_DATE
+        defaultObservationShouldNotBeFound("observationDate.greaterThan=" + DEFAULT_OBSERVATION_DATE);
+
+        // Get all the observationList where observationDate is greater than SMALLER_OBSERVATION_DATE
+        defaultObservationShouldBeFound("observationDate.greaterThan=" + SMALLER_OBSERVATION_DATE);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByTitleIsEqualToSomething() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where title equals to DEFAULT_TITLE
+        defaultObservationShouldBeFound("title.equals=" + DEFAULT_TITLE);
+
+        // Get all the observationList where title equals to UPDATED_TITLE
+        defaultObservationShouldNotBeFound("title.equals=" + UPDATED_TITLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByTitleIsInShouldWork() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where title in DEFAULT_TITLE or UPDATED_TITLE
+        defaultObservationShouldBeFound("title.in=" + DEFAULT_TITLE + "," + UPDATED_TITLE);
+
+        // Get all the observationList where title equals to UPDATED_TITLE
+        defaultObservationShouldNotBeFound("title.in=" + UPDATED_TITLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByTitleIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where title is not null
+        defaultObservationShouldBeFound("title.specified=true");
+
+        // Get all the observationList where title is null
+        defaultObservationShouldNotBeFound("title.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByTitleContainsSomething() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where title contains DEFAULT_TITLE
+        defaultObservationShouldBeFound("title.contains=" + DEFAULT_TITLE);
+
+        // Get all the observationList where title contains UPDATED_TITLE
+        defaultObservationShouldNotBeFound("title.contains=" + UPDATED_TITLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByTitleNotContainsSomething() throws Exception {
+        // Initialize the database
+        observationRepository.saveAndFlush(observation);
+
+        // Get all the observationList where title does not contain DEFAULT_TITLE
+        defaultObservationShouldNotBeFound("title.doesNotContain=" + DEFAULT_TITLE);
+
+        // Get all the observationList where title does not contain UPDATED_TITLE
+        defaultObservationShouldBeFound("title.doesNotContain=" + UPDATED_TITLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByImagesIsEqualToSomething() throws Exception {
+        Image images;
+        if (TestUtil.findAll(em, Image.class).isEmpty()) {
+            observationRepository.saveAndFlush(observation);
+            images = ImageResourceIT.createEntity(em);
+        } else {
+            images = TestUtil.findAll(em, Image.class).get(0);
+        }
+        em.persist(images);
+        em.flush();
+        observation.addImages(images);
+        observationRepository.saveAndFlush(observation);
+        Long imagesId = images.getId();
+
+        // Get all the observationList where images equals to imagesId
+        defaultObservationShouldBeFound("imagesId.equals=" + imagesId);
+
+        // Get all the observationList where images equals to (imagesId + 1)
+        defaultObservationShouldNotBeFound("imagesId.equals=" + (imagesId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllObservationsByExperimentIsEqualToSomething() throws Exception {
+        Experiment experiment;
+        if (TestUtil.findAll(em, Experiment.class).isEmpty()) {
+            observationRepository.saveAndFlush(observation);
+            experiment = ExperimentResourceIT.createEntity(em);
+        } else {
+            experiment = TestUtil.findAll(em, Experiment.class).get(0);
+        }
+        em.persist(experiment);
+        em.flush();
+        observation.setExperiment(experiment);
+        observationRepository.saveAndFlush(observation);
+        Long experimentId = experiment.getId();
+
+        // Get all the observationList where experiment equals to experimentId
+        defaultObservationShouldBeFound("experimentId.equals=" + experimentId);
+
+        // Get all the observationList where experiment equals to (experimentId + 1)
+        defaultObservationShouldNotBeFound("experimentId.equals=" + (experimentId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned.
+     */
+    private void defaultObservationShouldBeFound(String filter) throws Exception {
+        restObservationMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(observation.getId().intValue())))
+            .andExpect(jsonPath("$.[*].observationDate").value(hasItem(DEFAULT_OBSERVATION_DATE.toString())))
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+
+        // Check, that the count call also returns 1
+        restObservationMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned.
+     */
+    private void defaultObservationShouldNotBeFound(String filter) throws Exception {
+        restObservationMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restObservationMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("0"));
     }
 
     @Test

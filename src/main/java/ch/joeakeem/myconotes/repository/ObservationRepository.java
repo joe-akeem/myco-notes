@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data JPA repository for the Observation entity.
  */
 @Repository
-public interface ObservationRepository extends JpaRepository<Observation, Long> {
+public interface ObservationRepository extends JpaRepository<Observation, Long>, JpaSpecificationExecutor<Observation> {
     default Optional<Observation> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);
     }

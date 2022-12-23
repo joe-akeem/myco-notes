@@ -4,7 +4,9 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 
 import ch.joeakeem.myconotes.domain.Observation;
 import ch.joeakeem.myconotes.repository.ObservationRepository;
+import ch.joeakeem.myconotes.service.ObservationQueryService;
 import ch.joeakeem.myconotes.service.ObservationService;
+import ch.joeakeem.myconotes.service.criteria.ObservationCriteria;
 import ch.joeakeem.myconotes.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -20,7 +22,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -46,9 +47,16 @@ public class ObservationResource {
 
     private final ObservationRepository observationRepository;
 
-    public ObservationResource(ObservationService observationService, ObservationRepository observationRepository) {
+    private final ObservationQueryService observationQueryService;
+
+    public ObservationResource(
+        ObservationService observationService,
+        ObservationRepository observationRepository,
+        ObservationQueryService observationQueryService
+    ) {
         this.observationService = observationService;
         this.observationRepository = observationRepository;
+        this.observationQueryService = observationQueryService;
     }
 
     /**
@@ -145,23 +153,30 @@ public class ObservationResource {
      * {@code GET  /observations} : get all the observations.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of observations in body.
      */
     @GetMapping("/observations")
     public ResponseEntity<List<Observation>> getAllObservations(
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
-        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+        ObservationCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get a page of Observations");
-        Page<Observation> page;
-        if (eagerload) {
-            page = observationService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = observationService.findAll(pageable);
-        }
+        log.debug("REST request to get Observations by criteria: {}", criteria);
+        Page<Observation> page = observationQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /observations/count} : count all the observations.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/observations/count")
+    public ResponseEntity<Long> countObservations(ObservationCriteria criteria) {
+        log.debug("REST request to count Observations by criteria: {}", criteria);
+        return ResponseEntity.ok().body(observationQueryService.countByCriteria(criteria));
     }
 
     /**

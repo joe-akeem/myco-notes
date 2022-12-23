@@ -64,4 +64,4 @@ relationship ManyToMany {
 
 paginate all with pagination
 service all with serviceImpl
-filter Image
+filter Image, Observation
