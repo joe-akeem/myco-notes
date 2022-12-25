@@ -23,6 +23,9 @@
             <column name="isolated_at" type="date">
                 <constraints nullable="false" />
             </column>
+            <column name="fruiting" type="boolean">
+                <constraints nullable="true" />
+            </column>
             <column name="species_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -53,6 +56,7 @@
             <column name="name" type="string"/>
             <column name="description" type="clob"/>
             <column name="isolated_at" type="date"/>
+            <column name="fruiting" type="boolean"/>
             <column name="species_id" type="numeric"/>
             <column name="origin_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

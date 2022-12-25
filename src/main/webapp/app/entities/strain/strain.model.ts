@@ -7,6 +7,7 @@ export interface IStrain {
   name?: string | null;
   description?: string | null;
   isolatedAt?: dayjs.Dayjs | null;
+  fruiting?: boolean | null;
   species?: Pick<ISpecies, 'id' | 'name' | 'commonName'> | null;
   origin?: Pick<IExperiment, 'id' | 'title'> | null;
   experiments?: Pick<IExperiment, 'id' | 'title'>[] | null;

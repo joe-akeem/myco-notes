@@ -64,6 +64,9 @@ public class StrainServiceImpl implements StrainService {
                 if (strain.getIsolatedAt() != null) {
                     existingStrain.setIsolatedAt(strain.getIsolatedAt());
                 }
+                if (strain.getFruiting() != null) {
+                    existingStrain.setFruiting(strain.getFruiting());
+                }
 
                 return existingStrain;
             })

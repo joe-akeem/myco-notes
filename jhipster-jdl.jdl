@@ -16,6 +16,7 @@ entity Strain {
     name String required unique
     description TextBlob
     isolatedAt LocalDate required
+    fruiting Boolean
 }
 
 entity Experiment {

@@ -19,6 +19,10 @@
       "fieldName": "isolatedAt",
       "fieldType": "LocalDate",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fruiting",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,

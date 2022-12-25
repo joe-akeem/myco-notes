@@ -14,13 +14,14 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type StrainFormGroupInput = IStrain | PartialWithRequiredKeyOf<NewStrain>;
 
-type StrainFormDefaults = Pick<NewStrain, 'id' | 'experiments'>;
+type StrainFormDefaults = Pick<NewStrain, 'id' | 'fruiting' | 'experiments'>;
 
 type StrainFormGroupContent = {
   id: FormControl<IStrain['id'] | NewStrain['id']>;
   name: FormControl<IStrain['name']>;
   description: FormControl<IStrain['description']>;
   isolatedAt: FormControl<IStrain['isolatedAt']>;
+  fruiting: FormControl<IStrain['fruiting']>;
   species: FormControl<IStrain['species']>;
   origin: FormControl<IStrain['origin']>;
   experiments: FormControl<IStrain['experiments']>;
@@ -50,6 +51,7 @@ export class StrainFormService {
       isolatedAt: new FormControl(strainRawValue.isolatedAt, {
         validators: [Validators.required],
       }),
+      fruiting: new FormControl(strainRawValue.fruiting),
       species: new FormControl(strainRawValue.species, {
         validators: [Validators.required],
       }),
@@ -77,6 +79,7 @@ export class StrainFormService {
   private getFormDefaults(): StrainFormDefaults {
     return {
       id: null,
+      fruiting: false,
       experiments: [],
     };
   }

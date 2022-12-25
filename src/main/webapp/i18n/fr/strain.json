@@ -22,6 +22,7 @@
       "name": "Name",
       "description": "Description",
       "isolatedAt": "Isolated At",
+      "fruiting": "Fruiting",
       "images": "Images",
       "species": "Species",
       "origin": "Origin",

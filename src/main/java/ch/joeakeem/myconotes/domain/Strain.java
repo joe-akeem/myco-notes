@@ -42,6 +42,9 @@ public class Strain implements Serializable {
     @Column(name = "isolated_at", nullable = false)
     private LocalDate isolatedAt;
 
+    @Column(name = "fruiting")
+    private Boolean fruiting;
+
     @OneToMany(mappedBy = "strain")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @org.springframework.data.annotation.Transient
@@ -122,6 +125,19 @@ public class Strain implements Serializable {
 
     public void setIsolatedAt(LocalDate isolatedAt) {
         this.isolatedAt = isolatedAt;
+    }
+
+    public Boolean getFruiting() {
+        return this.fruiting;
+    }
+
+    public Strain fruiting(Boolean fruiting) {
+        this.setFruiting(fruiting);
+        return this;
+    }
+
+    public void setFruiting(Boolean fruiting) {
+        this.fruiting = fruiting;
     }
 
     public Set<Image> getImages() {
@@ -239,6 +255,7 @@ public class Strain implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", isolatedAt='" + getIsolatedAt() + "'" +
+            ", fruiting='" + getFruiting() + "'" +
             "}";
     }
 }

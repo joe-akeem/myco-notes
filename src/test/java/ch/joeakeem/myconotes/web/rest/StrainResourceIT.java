@@ -60,6 +60,9 @@ class StrainResourceIT {
     private static final LocalDate DEFAULT_ISOLATED_AT = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_ISOLATED_AT = LocalDate.now(ZoneId.systemDefault());
 
+    private static final Boolean DEFAULT_FRUITING = false;
+    private static final Boolean UPDATED_FRUITING = true;
+
     private static final String ENTITY_API_URL = "/api/strains";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
     private static final String ENTITY_SEARCH_API_URL = "/api/_search/strains";
@@ -94,7 +97,11 @@ class StrainResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Strain createEntity(EntityManager em) {
-        Strain strain = new Strain().name(DEFAULT_NAME).description(DEFAULT_DESCRIPTION).isolatedAt(DEFAULT_ISOLATED_AT);
+        Strain strain = new Strain()
+            .name(DEFAULT_NAME)
+            .description(DEFAULT_DESCRIPTION)
+            .isolatedAt(DEFAULT_ISOLATED_AT)
+            .fruiting(DEFAULT_FRUITING);
         // Add required entity
         Species species;
         if (TestUtil.findAll(em, Species.class).isEmpty()) {
@@ -125,7 +132,11 @@ class StrainResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Strain createUpdatedEntity(EntityManager em) {
-        Strain strain = new Strain().name(UPDATED_NAME).description(UPDATED_DESCRIPTION).isolatedAt(UPDATED_ISOLATED_AT);
+        Strain strain = new Strain()
+            .name(UPDATED_NAME)
+            .description(UPDATED_DESCRIPTION)
+            .isolatedAt(UPDATED_ISOLATED_AT)
+            .fruiting(UPDATED_FRUITING);
         // Add required entity
         Species species;
         if (TestUtil.findAll(em, Species.class).isEmpty()) {
@@ -183,6 +194,7 @@ class StrainResourceIT {
         assertThat(testStrain.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testStrain.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testStrain.getIsolatedAt()).isEqualTo(DEFAULT_ISOLATED_AT);
+        assertThat(testStrain.getFruiting()).isEqualTo(DEFAULT_FRUITING);
     }
 
     @Test
@@ -260,7 +272,8 @@ class StrainResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(strain.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].isolatedAt").value(hasItem(DEFAULT_ISOLATED_AT.toString())));
+            .andExpect(jsonPath("$.[*].isolatedAt").value(hasItem(DEFAULT_ISOLATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].fruiting").value(hasItem(DEFAULT_FRUITING.booleanValue())));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -294,7 +307,8 @@ class StrainResourceIT {
             .andExpect(jsonPath("$.id").value(strain.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.isolatedAt").value(DEFAULT_ISOLATED_AT.toString()));
+            .andExpect(jsonPath("$.isolatedAt").value(DEFAULT_ISOLATED_AT.toString()))
+            .andExpect(jsonPath("$.fruiting").value(DEFAULT_FRUITING.booleanValue()));
     }
 
     @Test
@@ -318,7 +332,7 @@ class StrainResourceIT {
         Strain updatedStrain = strainRepository.findById(strain.getId()).get();
         // Disconnect from session so that the updates on updatedStrain are not directly saved in db
         em.detach(updatedStrain);
-        updatedStrain.name(UPDATED_NAME).description(UPDATED_DESCRIPTION).isolatedAt(UPDATED_ISOLATED_AT);
+        updatedStrain.name(UPDATED_NAME).description(UPDATED_DESCRIPTION).isolatedAt(UPDATED_ISOLATED_AT).fruiting(UPDATED_FRUITING);
 
         restStrainMockMvc
             .perform(
@@ -335,6 +349,7 @@ class StrainResourceIT {
         assertThat(testStrain.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testStrain.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testStrain.getIsolatedAt()).isEqualTo(UPDATED_ISOLATED_AT);
+        assertThat(testStrain.getFruiting()).isEqualTo(UPDATED_FRUITING);
         await()
             .atMost(5, TimeUnit.SECONDS)
             .untilAsserted(() -> {
@@ -345,6 +360,7 @@ class StrainResourceIT {
                 assertThat(testStrainSearch.getName()).isEqualTo(UPDATED_NAME);
                 assertThat(testStrainSearch.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
                 assertThat(testStrainSearch.getIsolatedAt()).isEqualTo(UPDATED_ISOLATED_AT);
+                assertThat(testStrainSearch.getFruiting()).isEqualTo(UPDATED_FRUITING);
             });
     }
 
@@ -442,6 +458,7 @@ class StrainResourceIT {
         assertThat(testStrain.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testStrain.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testStrain.getIsolatedAt()).isEqualTo(DEFAULT_ISOLATED_AT);
+        assertThat(testStrain.getFruiting()).isEqualTo(DEFAULT_FRUITING);
     }
 
     @Test
@@ -456,7 +473,7 @@ class StrainResourceIT {
         Strain partialUpdatedStrain = new Strain();
         partialUpdatedStrain.setId(strain.getId());
 
-        partialUpdatedStrain.name(UPDATED_NAME).description(UPDATED_DESCRIPTION).isolatedAt(UPDATED_ISOLATED_AT);
+        partialUpdatedStrain.name(UPDATED_NAME).description(UPDATED_DESCRIPTION).isolatedAt(UPDATED_ISOLATED_AT).fruiting(UPDATED_FRUITING);
 
         restStrainMockMvc
             .perform(
@@ -473,6 +490,7 @@ class StrainResourceIT {
         assertThat(testStrain.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testStrain.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testStrain.getIsolatedAt()).isEqualTo(UPDATED_ISOLATED_AT);
+        assertThat(testStrain.getFruiting()).isEqualTo(UPDATED_FRUITING);
     }
 
     @Test
@@ -579,6 +597,7 @@ class StrainResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(strain.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].isolatedAt").value(hasItem(DEFAULT_ISOLATED_AT.toString())));
+            .andExpect(jsonPath("$.[*].isolatedAt").value(hasItem(DEFAULT_ISOLATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].fruiting").value(hasItem(DEFAULT_FRUITING.booleanValue())));
     }
 }

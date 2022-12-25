@@ -26,6 +26,14 @@
         <dd>
           <span>{{ strain.isolatedAt | formatMediumDate }}</span>
         </dd>
+        <dt><span jhiTranslate="mycoNotesApp.strain.fruiting">Fruiting</span></dt>
+        <dd>
+          <fa-icon
+            [icon]="strain.fruiting ? 'check' : 'times'"
+            aria-hidden="true"
+            class="{{ strain.fruiting ? 'text-success' : 'text-danger' }}"
+          ></fa-icon>
+        </dd>
         <dt><span jhiTranslate="mycoNotesApp.strain.species">Species</span></dt>
         <dd>
           <div *ngIf="strain.species">

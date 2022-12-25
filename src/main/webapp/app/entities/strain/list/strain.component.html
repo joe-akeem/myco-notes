@@ -80,6 +80,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="fruiting">
+            <div class="d-flex">
+              <span jhiTranslate="mycoNotesApp.strain.fruiting">Fruiting</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="species.name">
             <div class="d-flex">
               <span jhiTranslate="mycoNotesApp.strain.species">Species</span>
@@ -103,6 +109,13 @@
           <td>{{ strain.name }}</td>
           <td>{{ strain.description }}</td>
           <td>{{ strain.isolatedAt | formatMediumDate }}</td>
+          <td>
+            <fa-icon
+              [icon]="strain.fruiting ? 'check' : 'times'"
+              aria-hidden="true"
+              class="{{ strain.fruiting ? 'text-success' : 'text-danger' }}"
+            ></fa-icon>
+          </td>
           <td>
             <div *ngIf="strain.species">
               <a [routerLink]="['/species', strain.species.id, 'view']"> {{ strain.species.name }} ( {{ strain.species.commonName }}) </a>
