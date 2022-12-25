@@ -46,7 +46,8 @@
         <dt><span jhiTranslate="mycoNotesApp.experiment.precedingExperiments">Preceding Experiments</span></dt>
         <dd>
           <span *ngFor="let precedingExperiments of experiment.precedingExperiments; let last = last">
-            <a [routerLink]="['/experiment', precedingExperiments.id, 'view']">{{ precedingExperiments.title }}</a
+            <a [routerLink]="['/experiment', precedingExperiments.id, 'view']"
+              >{{ precedingExperiments.id }} - {{ precedingExperiments.title }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>
