@@ -1,1 +1,3 @@
-id;title;description;image;image_content_type
+id;title;description;image;image_content_type;observation_id;strain_id;tek_id
+1001;First flush PE-1;;../fake-data/blob/pe-1.1.jpg;image/jpeg;1001;1001;
+1002;Secondt flush PE-1;;../fake-data/blob/pe-1.2.jpg;image/jpeg;1002;1001;

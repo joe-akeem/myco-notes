@@ -60,6 +60,9 @@
             <column name="description" type="clob"/>
             <column name="image" type="blob"/>
             <column name="image_content_type" type="string"/>
+            <column name="observation_id" type="numeric"/>
+            <column name="strain_id" type="numeric"/>
+            <column name="tek_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
