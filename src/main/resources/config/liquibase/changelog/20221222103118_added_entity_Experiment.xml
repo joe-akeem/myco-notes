@@ -56,6 +56,19 @@
         </createTable>
 
         <addPrimaryKey columnNames="experiment_id, preceding_experiments_id" tableName="rel_experiment__preceding_experiments"/>
+
+        <loadData
+            file="config/liquibase/data/experiment.csv"
+            separator=";"
+            tableName="experiment"
+            usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="title" type="string"/>
+            <column name="notes" type="clob"/>
+            <column name="conducted_at" type="date"/>
+            <column name="tek_id" type="numeric"/>
+            <column name="conducted_by_id" type="numeric"/>
+        </loadData>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

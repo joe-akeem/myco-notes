@@ -105,7 +105,7 @@
           <td>{{ strain.isolatedAt | formatMediumDate }}</td>
           <td>
             <div *ngIf="strain.species">
-              <a [routerLink]="['/species', strain.species.id, 'view']">{{ strain.species.name }}</a>
+              <a [routerLink]="['/species', strain.species.id, 'view']"> {{ strain.species.name }} ( {{ strain.species.commonName }}) </a>
             </div>
           </td>
           <td>
