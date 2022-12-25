@@ -95,5 +95,25 @@
             <column name="conducted_by_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
+
+        <loadData
+            file="config/liquibase/fake-data/preceeding_experiment.csv"
+            separator=";"
+            tableName="REL_EXPERIMENT__PRECEDING_EXPERIMENTS"
+            usePreparedStatements="true">
+            <column name="EXPERIMENT_ID" type="numeric"/>
+            <column name="PRECEDING_EXPERIMENTS_ID" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+
+        <loadData
+            file="config/liquibase/fake-data/experiment_involved_strains.csv"
+            separator=";"
+            tableName="REL_EXPERIMENT__INVOLVED_STRAINS"
+            usePreparedStatements="true">
+            <column name="EXPERIMENT_ID" type="numeric"/>
+            <column name="INVOLVED_STRAINS_ID" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
     </changeSet>
 </databaseChangeLog>

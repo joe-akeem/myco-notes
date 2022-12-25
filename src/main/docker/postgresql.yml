@@ -2,9 +2,9 @@
 version: '3.8'
 services:
   myconotes-postgresql:
-    image: postgres:14.5
-    # volumes:
-    #   - ~/volumes/jhipster/MycoNotes/postgresql/:/var/lib/postgresql/data/
+    image: postgres:15.1
+    volumes:
+      - ~/volumes/jhipster/MycoNotes/postgresql/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=MycoNotes
       - POSTGRES_PASSWORD=
