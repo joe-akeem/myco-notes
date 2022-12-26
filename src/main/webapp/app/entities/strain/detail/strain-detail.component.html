@@ -37,7 +37,7 @@
         <dt><span jhiTranslate="mycoNotesApp.strain.species">Species</span></dt>
         <dd>
           <div *ngIf="strain.species">
-            <a [routerLink]="['/species', strain.species.id, 'view']">{{ strain.species.name }}</a>
+            <a [routerLink]="['/species', strain.species.id, 'view']">{{ strain.species.genus?.name }} {{ strain.species.name }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="mycoNotesApp.strain.origin">Origin</span></dt>

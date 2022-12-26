@@ -53,7 +53,6 @@ public class Strain implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "genus" }, allowSetters = true)
     private Species species;
 
     @ManyToOne(optional = false)
