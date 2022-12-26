@@ -14,6 +14,19 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mycoNotesApp.species.genus" for="field_genus">Genus</label>
+          <select class="form-control" id="field_genus" data-cy="genus" name="genus" formControlName="genus" [compareWith]="compareGenus">
+            <option *ngIf="!editForm.get('genus')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="genusOption" *ngFor="let genusOption of generaSharedCollection">{{ genusOption.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['genus'])!.invalid && (editForm.get(['genus'])!.dirty || editForm.get(['genus'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['genus'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" jhiTranslate="mycoNotesApp.species.name" for="field_name">Name</label>
           <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
           <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
@@ -44,19 +57,6 @@
             data-cy="description"
             formControlName="description"
           ></textarea>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="mycoNotesApp.species.genus" for="field_genus">Genus</label>
-          <select class="form-control" id="field_genus" data-cy="genus" name="genus" formControlName="genus" [compareWith]="compareGenus">
-            <option *ngIf="!editForm.get('genus')!.value" [ngValue]="null" selected></option>
-            <option [ngValue]="genusOption" *ngFor="let genusOption of generaSharedCollection">{{ genusOption.name }}</option>
-          </select>
-        </div>
-        <div *ngIf="editForm.get(['genus'])!.invalid && (editForm.get(['genus'])!.dirty || editForm.get(['genus'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['genus'])?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
-          </small>
         </div>
       </div>
 

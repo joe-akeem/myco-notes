@@ -14,6 +14,12 @@
         <dd>
           <span>{{ species.id }}</span>
         </dd>
+        <dt><span jhiTranslate="mycoNotesApp.species.genus">Genus</span></dt>
+        <dd>
+          <div *ngIf="species.genus">
+            <a [routerLink]="['/genus', species.genus.id, 'view']">{{ species.genus.name }}</a>
+          </div>
+        </dd>
         <dt><span jhiTranslate="mycoNotesApp.species.name">Name</span></dt>
         <dd>
           <span>{{ species.name }}</span>
@@ -25,12 +31,6 @@
         <dt><span jhiTranslate="mycoNotesApp.species.description">Description</span></dt>
         <dd>
           <span>{{ species.description }}</span>
-        </dd>
-        <dt><span jhiTranslate="mycoNotesApp.species.genus">Genus</span></dt>
-        <dd>
-          <div *ngIf="species.genus">
-            <a [routerLink]="['/genus', species.genus.id, 'view']">{{ species.genus.name }}</a>
-          </div>
         </dd>
       </dl>
 
