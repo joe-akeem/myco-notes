@@ -64,7 +64,7 @@ public class Experiment implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "involved_strains_id")
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "images", "species", "origin", "experiments" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "images", "origin", "experiments" }, allowSetters = true)
     private Set<Strain> involvedStrains = new HashSet<>();
 
     @ManyToMany

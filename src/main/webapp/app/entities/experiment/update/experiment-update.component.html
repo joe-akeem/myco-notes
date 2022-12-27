@@ -106,7 +106,9 @@
             formControlName="involvedStrains"
             [compareWith]="compareStrain"
           >
-            <option [ngValue]="strainOption" *ngFor="let strainOption of strainsSharedCollection">{{ strainOption.name }}</option>
+            <option [ngValue]="strainOption" *ngFor="let strainOption of strainsSharedCollection">
+              {{ strainOption.name }} ({{ strainOption.species?.genus?.name }} {{ strainOption.species?.name }})
+            </option>
           </select>
         </div>
 

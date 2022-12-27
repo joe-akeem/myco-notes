@@ -39,7 +39,8 @@
         <dt><span jhiTranslate="mycoNotesApp.experiment.involvedStrains">Involved Strains</span></dt>
         <dd>
           <span *ngFor="let involvedStrains of experiment.involvedStrains; let last = last">
-            <a [routerLink]="['/strain', involvedStrains.id, 'view']">{{ involvedStrains.name }}</a
+            <a [routerLink]="['/strain', involvedStrains.id, 'view']"
+              >{{ involvedStrains.name }} ({{ involvedStrains.species?.genus?.name }} {{ involvedStrains.species?.name }})</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>

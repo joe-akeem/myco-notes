@@ -10,7 +10,7 @@ export interface IExperiment {
   conductedAt?: dayjs.Dayjs | null;
   tek?: Pick<ITek, 'id' | 'title'> | null;
   conductedBy?: Pick<IUser, 'id' | 'login'> | null;
-  involvedStrains?: Pick<IStrain, 'id' | 'name'>[] | null;
+  involvedStrains?: Pick<IStrain, 'id' | 'name' | 'species'>[] | null;
   precedingExperiments?: Pick<IExperiment, 'id' | 'title'>[] | null;
   followupExperiments?: Pick<IExperiment, 'id' | 'title'>[] | null;
 }
