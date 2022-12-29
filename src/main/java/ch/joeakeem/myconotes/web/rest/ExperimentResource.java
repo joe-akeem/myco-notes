@@ -1,17 +1,18 @@
 package ch.joeakeem.myconotes.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 import ch.joeakeem.myconotes.domain.Experiment;
+import ch.joeakeem.myconotes.domain.Row;
+import ch.joeakeem.myconotes.domain.RowBuilder;
 import ch.joeakeem.myconotes.repository.ExperimentRepository;
 import ch.joeakeem.myconotes.service.ExperimentService;
 import ch.joeakeem.myconotes.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
@@ -175,6 +177,13 @@ public class ExperimentResource {
         log.debug("REST request to get Experiment : {}", id);
         Optional<Experiment> experiment = experimentService.findOne(id);
         return ResponseUtil.wrapOrNotFound(experiment);
+    }
+
+    @GetMapping("/experiments/{id}/ganttData")
+    public ResponseEntity<List<Row>> getGanttData(@PathVariable Long id) {
+        log.debug("REST request to get Gantt data for Experiment : {}", id);
+        final List<Row> chartData = experimentService.getChartData(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(chartData);
     }
 
     /**

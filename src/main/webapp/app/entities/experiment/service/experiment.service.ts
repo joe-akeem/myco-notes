@@ -9,7 +9,8 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { SearchWithPagination } from 'app/core/request/request.model';
-import { IExperiment, NewExperiment } from '../experiment.model';
+import { GanttRow, IExperiment, NewExperiment } from '../experiment.model';
+import { Row } from 'angular-google-charts';
 
 export type PartialUpdateExperiment = Partial<IExperiment> & Pick<IExperiment, 'id'>;
 
@@ -58,6 +59,10 @@ export class ExperimentService {
     return this.http
       .get<RestExperiment>(`${this.resourceUrl}/${id}`, { observe: 'response' })
       .pipe(map(res => this.convertResponseFromServer(res)));
+  }
+
+  getGanttData(id: number): Observable<HttpResponse<GanttRow[]>> {
+    return this.http.get<GanttRow[]>(`${this.resourceUrl}/${id}/ganttData`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
@@ -131,4 +136,12 @@ export class ExperimentService {
       body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
     });
   }
+
+  // private convertRowsFromServer(response: HttpResponse<GanttRow[]>) : HttpResponse<GanttRow[]> {
+  //   response.body?.forEach(row => {
+  //     row[3] =  Date.parse(row[3] as string);
+  //     row[4] =  Date.parse(row[4] as string);
+  //   });
+  //   return response;
+  // }
 }

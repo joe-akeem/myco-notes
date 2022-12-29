@@ -2,6 +2,7 @@ import dayjs from 'dayjs/esm';
 import { ITek } from 'app/entities/tek/tek.model';
 import { IUser } from 'app/entities/user/user.model';
 import { IStrain } from 'app/entities/strain/strain.model';
+import { Row } from 'angular-google-charts';
 
 export interface IExperiment {
   id: number;
@@ -16,3 +17,14 @@ export interface IExperiment {
 }
 
 export type NewExperiment = Omit<IExperiment, 'id'> & { id: null };
+
+export interface GanttRow extends Row {
+  taskId: string;
+  taskName: string;
+  resource: string;
+  startDate: Date;
+  endDate: Date;
+  duration: number;
+  percentComplete: number;
+  dependencies: string;
+}

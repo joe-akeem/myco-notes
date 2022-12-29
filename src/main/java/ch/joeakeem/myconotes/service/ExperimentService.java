@@ -1,6 +1,8 @@
 package ch.joeakeem.myconotes.service;
 
 import ch.joeakeem.myconotes.domain.Experiment;
+import ch.joeakeem.myconotes.domain.Row;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,6 +58,8 @@ public interface ExperimentService {
      * @return the entity.
      */
     Optional<Experiment> findOne(Long id);
+
+    Optional<List<Row>> getChartData(Long id);
 
     /**
      * Delete the "id" experiment.

@@ -1,12 +1,15 @@
 package ch.joeakeem.myconotes.service.impl;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 import ch.joeakeem.myconotes.domain.Experiment;
+import ch.joeakeem.myconotes.domain.Row;
+import ch.joeakeem.myconotes.domain.RowBuilder;
 import ch.joeakeem.myconotes.repository.ExperimentRepository;
 import ch.joeakeem.myconotes.repository.search.ExperimentSearchRepository;
 import ch.joeakeem.myconotes.service.ExperimentService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -91,6 +94,40 @@ public class ExperimentServiceImpl implements ExperimentService {
     public Optional<Experiment> findOne(Long id) {
         log.debug("Request to get Experiment : {}", id);
         return experimentRepository.findOneWithEagerRelationships(id);
+    }
+
+    @Override
+    public Optional<List<Row>> getChartData(Long id) {
+        final Optional<Experiment> optionalExperiment = findOne(id);
+        if (optionalExperiment.isEmpty()) {
+            return Optional.empty();
+        }
+        final Experiment experiment = optionalExperiment.get();
+        final RowBuilder rowBuilder = new RowBuilder();
+        final List<Row> chartData = new ArrayList<>();
+        addChartData(rowBuilder, chartData, experiment, null);
+        return Optional.of(chartData);
+    }
+
+    private void addChartData(RowBuilder rowBuilder, List<Row> chartData, Experiment experiment, Experiment successor) {
+        String dependencies = experiment.getPrecedingExperiments().stream().map(e -> e.getId().toString()).collect(Collectors.joining(","));
+
+        chartData.add(
+            rowBuilder
+                .setTaskId(experiment.getId().toString())
+                .setTaskName(experiment.getTitle())
+                .setResource("Experiment")
+                .setStartDate(experiment.getConductedAt())
+                .setEndDate(successor != null ? successor.getConductedAt() : experiment.getConductedAt().plusDays(1))
+                .setDependencies(dependencies)
+                .createRow()
+        );
+
+        experiment
+            .getPrecedingExperiments()
+            .forEach(ex -> {
+                addChartData(rowBuilder, chartData, ex, experiment);
+            });
     }
 
     @Override
