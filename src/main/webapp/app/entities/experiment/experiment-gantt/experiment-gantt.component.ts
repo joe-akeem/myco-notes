@@ -10,35 +10,31 @@ import { ExperimentService } from '../service/experiment.service';
 export class ExperimentGanttComponent implements OnInit {
   @Input() experimentId: number = 0;
 
-  type: ChartType = ChartType.Gantt;
+  type: ChartType = ChartType.Sankey;
+
   chartColumns: Column[] = [
-    { type: 'string', role: 'Task ID' },
-    { type: 'string', role: 'Task Name' },
-    { type: 'string', role: 'Resource' },
-    { type: 'date', role: 'Start Date' },
-    { type: 'date', role: 'End Date' },
-    { type: 'number', role: 'Duration' },
-    { type: 'number', role: 'Percent Complete' },
-    { type: 'string', role: 'Dependencies' },
+    { type: 'string', role: 'From' },
+    { type: 'string', role: 'To' },
+    { type: 'number', role: 'Weight' },
+    { type: 'string', role: 'tooltip', properties: { html: true } },
   ];
+
   chartData: Row[] = [];
+
   height: number = 600;
+
+  options = {
+    tooltip: {
+      isHtml: true,
+    },
+  };
 
   constructor(protected experimentService: ExperimentService) {}
 
   ngOnInit(): void {
-    this.experimentService.getGanttData(this.experimentId).subscribe(ganttData => {
+    this.experimentService.getSankeyCartData(this.experimentId).subscribe(ganttData => {
       ganttData.body?.forEach(row => {
-        this.chartData.push([
-          row.taskId,
-          row.taskName,
-          row.resource,
-          row.startDate ? new Date(row.startDate) : null,
-          row.endDate ? new Date(row.endDate) : null,
-          row.duration,
-          row.percentComplete,
-          row.dependencies,
-        ]);
+        this.chartData.push([row.from, row.to, row.weight, row.tooltip]);
       });
     });
   }

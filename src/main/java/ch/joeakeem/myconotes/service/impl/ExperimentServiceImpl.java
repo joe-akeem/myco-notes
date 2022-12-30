@@ -2,14 +2,14 @@ package ch.joeakeem.myconotes.service.impl;
 
 import ch.joeakeem.myconotes.domain.Experiment;
 import ch.joeakeem.myconotes.domain.Row;
-import ch.joeakeem.myconotes.domain.RowBuilder;
+import ch.joeakeem.myconotes.domain.Strain;
 import ch.joeakeem.myconotes.repository.ExperimentRepository;
 import ch.joeakeem.myconotes.repository.search.ExperimentSearchRepository;
 import ch.joeakeem.myconotes.service.ExperimentService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -23,6 +23,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class ExperimentServiceImpl implements ExperimentService {
+
+    public static final String EXPERIMENT_TO_EXPERIMENT_TOOLTIP =
+        "<div style=\"margin=5px\"><ul>\n" +
+        "  <li><a href=\"/experiment/%d/view\">%s (%s)</a></br></li>\n" +
+        "  <li><a href=\"/experiment/%d/view\">%s (%s)</a></li>\n" +
+        "  </ul>\n" +
+        "</div>";
+
+    public static final String EXPERIMENT_TO_STRAIN_TOOLTIP =
+        "<div style=\"margin=5px\"><ul>\n" +
+        "  <li><a href=\"/experiment/%d/view\">%s (%s)</a></br></li>\n" +
+        "  <li><a href=\"/strain/%d/view\">%s (%s)</a></li>\n" +
+        "  </ul>\n" +
+        "</div>";
+
+    public static final String STRAIN_TO_EXPERIMENT_TOOLTIP =
+        "<div style=\"margin=5px\"><ul>\n" +
+        "  <li><a href=\"/experiment/%d/view\">%s (%s)</a></br></li>\n" +
+        "  <li><a href=\"/experiment/%d/view\">%s (%s)</a></li>\n" +
+        "  </ul>\n" +
+        "</div>";
 
     private final Logger log = LoggerFactory.getLogger(ExperimentServiceImpl.class);
 
@@ -103,31 +124,77 @@ public class ExperimentServiceImpl implements ExperimentService {
             return Optional.empty();
         }
         final Experiment experiment = optionalExperiment.get();
-        final RowBuilder rowBuilder = new RowBuilder();
         final List<Row> chartData = new ArrayList<>();
-        addChartData(rowBuilder, chartData, experiment, null);
+        addExperimentToExperimentChartData(chartData, experiment, experiment.getPrecedingExperiments());
+        addStrainToExperimentChartData(chartData, experiment, experiment.getInvolvedStrains());
         return Optional.of(chartData);
     }
 
-    private void addChartData(RowBuilder rowBuilder, List<Row> chartData, Experiment experiment, Experiment successor) {
-        String dependencies = experiment.getPrecedingExperiments().stream().map(e -> e.getId().toString()).collect(Collectors.joining(","));
+    private void addExperimentToExperimentChartData(List<Row> chartData, Experiment experiment, Set<Experiment> precedingExperiments) {
+        precedingExperiments.forEach(preceding -> {
+            log.debug("experiment ({}) -> experiment ({})", preceding.getId(), experiment.getId());
+            chartData.add(new Row(title(preceding), title(experiment), 1, tooltip(preceding, experiment)));
+            addExperimentToExperimentChartData(chartData, preceding, preceding.getPrecedingExperiments());
+            addStrainToExperimentChartData(chartData, preceding, preceding.getInvolvedStrains());
+        });
+    }
 
-        chartData.add(
-            rowBuilder
-                .setTaskId(experiment.getId().toString())
-                .setTaskName(experiment.getTitle())
-                .setResource("Experiment")
-                .setStartDate(experiment.getConductedAt())
-                .setEndDate(successor != null ? successor.getConductedAt() : experiment.getConductedAt().plusDays(1))
-                .setDependencies(dependencies)
-                .createRow()
+    private void addStrainToExperimentChartData(List<Row> chartData, Experiment experiment, Set<Strain> involvedStrains) {
+        involvedStrains.forEach(strain -> {
+            log.debug("strain ({}) -> experiment ({})", strain.getId(), experiment.getId());
+            chartData.add(new Row(title(strain), title(experiment), 1, tooltip(strain, experiment)));
+            addExperimentToStrainChartData(chartData, strain, strain.getOrigin());
+        });
+    }
+
+    private void addExperimentToStrainChartData(List<Row> chartData, Strain strain, Experiment origin) {
+        chartData.add(new Row(title(origin), title(strain), 1, tooltip(origin, strain)));
+        addExperimentToExperimentChartData(chartData, origin, origin.getPrecedingExperiments());
+        addStrainToExperimentChartData(chartData, origin, origin.getInvolvedStrains());
+    }
+
+    private String tooltip(Experiment from, Experiment to) {
+        return String.format(
+            EXPERIMENT_TO_EXPERIMENT_TOOLTIP,
+            from.getId(),
+            from.getTitle(),
+            from.getConductedAt(),
+            to.getId(),
+            to.getTitle(),
+            to.getConductedAt()
         );
+    }
 
-        experiment
-            .getPrecedingExperiments()
-            .forEach(ex -> {
-                addChartData(rowBuilder, chartData, ex, experiment);
-            });
+    private String tooltip(Experiment from, Strain to) {
+        return String.format(
+            EXPERIMENT_TO_STRAIN_TOOLTIP,
+            from.getId(),
+            from.getTitle(),
+            from.getConductedAt(),
+            to.getId(),
+            to.getName(),
+            to.getIsolatedAt()
+        );
+    }
+
+    private String tooltip(Strain from, Experiment to) {
+        return String.format(
+            STRAIN_TO_EXPERIMENT_TOOLTIP,
+            from.getId(),
+            from.getName(),
+            from.getIsolatedAt(),
+            to.getId(),
+            to.getTitle(),
+            to.getConductedAt()
+        );
+    }
+
+    private String title(Experiment experiment) {
+        return experiment.getTitle() + "(" + experiment.getConductedAt() + ")";
+    }
+
+    private String title(Strain strain) {
+        return strain.getName() + "(" + strain.getIsolatedAt() + ")";
     }
 
     @Override

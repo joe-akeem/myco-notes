@@ -2,14 +2,11 @@ package ch.joeakeem.myconotes.web.rest;
 
 import ch.joeakeem.myconotes.domain.Experiment;
 import ch.joeakeem.myconotes.domain.Row;
-import ch.joeakeem.myconotes.domain.RowBuilder;
 import ch.joeakeem.myconotes.repository.ExperimentRepository;
 import ch.joeakeem.myconotes.service.ExperimentService;
 import ch.joeakeem.myconotes.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -179,9 +176,9 @@ public class ExperimentResource {
         return ResponseUtil.wrapOrNotFound(experiment);
     }
 
-    @GetMapping("/experiments/{id}/ganttData")
-    public ResponseEntity<List<Row>> getGanttData(@PathVariable Long id) {
-        log.debug("REST request to get Gantt data for Experiment : {}", id);
+    @GetMapping("/experiments/{id}/sankeyChartData")
+    public ResponseEntity<List<Row>> getSankeyChartData(@PathVariable Long id) {
+        log.debug("REST request to get Sankey chart data for Experiment : {}", id);
         final List<Row> chartData = experimentService.getChartData(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return ResponseEntity.ok(chartData);
     }

@@ -18,13 +18,9 @@ export interface IExperiment {
 
 export type NewExperiment = Omit<IExperiment, 'id'> & { id: null };
 
-export interface GanttRow extends Row {
-  taskId: string;
-  taskName: string;
-  resource: string;
-  startDate: Date;
-  endDate: Date;
-  duration: number;
-  percentComplete: number;
-  dependencies: string;
+export interface SankeyRow extends Row {
+  from: string;
+  to: string;
+  weight: number;
+  tooltip: string;
 }

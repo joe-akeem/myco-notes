@@ -1,74 +1,41 @@
 package ch.joeakeem.myconotes.domain;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import javax.annotation.Nonnull;
 
 public class Row {
 
-    @Nonnull
-    private final String taskId;
+    private final String from;
 
-    @Nonnull
-    private final String taskName;
+    private final String to;
 
-    private final String resource;
-    private final LocalDate startDate;
-    private final LocalDate endDate;
-    private final Long duration;
-    private final Integer percentComplete;
-    private final String dependencies;
+    private final Integer weight;
 
-    Row(
-        @Nonnull String taskId,
-        @Nonnull String taskName,
-        String resource,
-        LocalDate startDate,
-        LocalDate endDate,
-        Long duration,
-        Integer percentComplete,
-        String dependencies
-    ) {
-        this.taskId = taskId;
-        this.taskName = taskName;
-        this.resource = resource;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.duration = duration;
-        this.percentComplete = percentComplete;
-        this.dependencies = dependencies;
+    private final String tooltip;
+
+    public Row(@Nonnull String from, @Nonnull String to, @Nonnull Integer weight, @Nonnull String tooltip) {
+        this.from = Objects.requireNonNull(from);
+        this.to = Objects.requireNonNull(to);
+        this.weight = Objects.requireNonNull(weight);
+        this.tooltip = Objects.requireNonNull(tooltip);
     }
 
     @Nonnull
-    public String getTaskId() {
-        return taskId;
+    public String getFrom() {
+        return from;
     }
 
     @Nonnull
-    public String getTaskName() {
-        return taskName;
+    public String getTo() {
+        return to;
     }
 
-    public String getResource() {
-        return resource;
+    public Integer getWeight() {
+        return weight;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public Long getDuration() {
-        return duration;
-    }
-
-    public Integer getPercentComplete() {
-        return percentComplete;
-    }
-
-    public String getDependencies() {
-        return dependencies;
+    public String getTooltip() {
+        return tooltip;
     }
 }
