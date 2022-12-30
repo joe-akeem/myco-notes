@@ -3,11 +3,11 @@ import { ChartType, Column, Row } from 'angular-google-charts';
 import { ExperimentService } from '../service/experiment.service';
 
 @Component({
-  selector: 'jhi-experiment-gantt',
-  templateUrl: './experiment-gantt.component.html',
-  styleUrls: ['./experiment-gantt.component.scss'],
+  selector: 'jhi-experiment-sankey',
+  templateUrl: './experiment-sankey.component.html',
+  styleUrls: ['./experiment-sankey.component.scss'],
 })
-export class ExperimentGanttComponent implements OnInit {
+export class ExperimentSankeyComponent implements OnInit {
   @Input() experimentId: number = 0;
 
   type: ChartType = ChartType.Sankey;
@@ -32,8 +32,8 @@ export class ExperimentGanttComponent implements OnInit {
   constructor(protected experimentService: ExperimentService) {}
 
   ngOnInit(): void {
-    this.experimentService.getSankeyCartData(this.experimentId).subscribe(ganttData => {
-      ganttData.body?.forEach(row => {
+    this.experimentService.getSankeyChartData(this.experimentId).subscribe(data => {
+      data.body?.forEach(row => {
         this.chartData.push([row.from, row.to, row.weight, row.tooltip]);
       });
     });

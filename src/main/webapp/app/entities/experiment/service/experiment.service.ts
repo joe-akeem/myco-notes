@@ -61,7 +61,7 @@ export class ExperimentService {
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
-  getSankeyCartData(id: number): Observable<HttpResponse<SankeyRow[]>> {
+  getSankeyChartData(id: number): Observable<HttpResponse<SankeyRow[]>> {
     return this.http.get<SankeyRow[]>(`${this.resourceUrl}/${id}/sankeyChartData`, { observe: 'response' });
   }
 

@@ -5,7 +5,7 @@ import { ExperimentDetailComponent } from './detail/experiment-detail.component'
 import { ExperimentUpdateComponent } from './update/experiment-update.component';
 import { ExperimentDeleteDialogComponent } from './delete/experiment-delete-dialog.component';
 import { ExperimentRoutingModule } from './route/experiment-routing.module';
-import { ExperimentGanttComponent } from './experiment-gantt/experiment-gantt.component';
+import { ExperimentSankeyComponent } from './experiment-sankey/experiment-sankey.component';
 import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     ExperimentDetailComponent,
     ExperimentUpdateComponent,
     ExperimentDeleteDialogComponent,
-    ExperimentGanttComponent,
+    ExperimentSankeyComponent,
   ],
 })
 export class ExperimentModule {}
